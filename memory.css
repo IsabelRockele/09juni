@@ -1,0 +1,371 @@
+/* memory.css */
+
+.speler {
+  padding: 8px;
+  border-radius: 12px;
+  margin-bottom: 40px;
+  font-size: 2.2em;
+  background-color: #f1f1f1;
+  transition: background-color 0.3s ease;
+  border: 2px solid #ccc;
+  width: 240px;
+  box-shadow: 3px 3px 10px rgba(0,0,0,0.15);
+  text-align: center;
+}
+
+.speler-1 {
+  background-color: #f#e3f7ff; /* pastelrood */
+}
+
+.speler-2 {
+  background-color: #e3f7ff; /* pastelblauw als niet actief */
+}
+
+.speler.actief {
+  background-color: #ffb3b3 !important; /* intensere pastelrood voor actieve */
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
+}
+
+#score-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;   /* uitlijnen naar rechts */
+  position: fixed;
+  right: 40px;
+  top: 160px;
+  gap: 100px;
+  z-index: 10;
+}
+
+.kaart-stapel {
+  position: relative;
+  height: 80px; /* ruimte voor stapeling */
+  margin-top: 10px;
+}
+
+.kaart-stapel .kaartje {
+  width: 40px;
+  height: 60px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translateY(var(--offset));
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+button {
+  background-color: #ccc;
+  color: #fff;
+  cursor: not-allowed;
+  transition: background-color 0.3s;
+}
+button:disabled {
+  background-color: #ccc;
+  color: #fff;
+  cursor: not-allowed;
+}
+button:enabled {
+  background-color: #00b4d8;
+  color: #fff;
+  cursor: pointer;
+}
+button:hover:enabled,
+button:active:enabled {
+  background-color: #0099c4;
+  color: #fff;
+}
+button.keuze,
+button.tafel,
+button.spelers {
+  background-color: #00b4d8;
+  color: white;
+  cursor: pointer;
+}
+button.keuze.active,
+button.tafel.active,
+button.spelers.active {
+  background-color: #0077b6;
+  color: white;
+}
+button.btn-opnieuw {
+  background-color: #2e7d32 !important;
+  color: #fff !important;
+  cursor: pointer;
+}
+button.btn-opnieuw:hover,
+button.btn-opnieuw:focus {
+  background-color: #219150 !important;
+}
+
+button.btn-terug {
+  background-color: #b71c1c !important;
+  color: #fff !important;
+  cursor: pointer;
+}
+button.btn-terug:hover,
+button.btn-terug:focus {
+  background-color: #e53935 !important;
+}
+@media (max-width: 1200px) {
+  #score-container {
+    right: 10px;
+    top: 100px;
+    gap: 60px;
+  }
+
+  .stapel.speler {
+    width: 180px;
+    font-size: 1.5em;
+    padding: 6px;
+    margin-bottom: 20px;
+  }
+
+  .kaart-stapel {
+    height: 60px;
+  }
+
+  .kaartje-in-stapel {
+    width: 40px;
+    height: 60px;
+  }
+}
+
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: landscape)
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+  .spel-links {
+    position: absolute !important;
+    top: -20px;
+    left: -30px;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px;
+  }
+
+  #spelbord {
+    margin-left: 160px !important;
+    margin-top: 10px !important;
+  }
+
+  #score-container {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    gap: 40px !important;                /* meer ruimte tussen spelers */
+    margin-top: -20px !important;          /* hoger in het scherm */
+    margin-left: 100px !important;        /* iets naar rechts */
+    flex-wrap: nowrap !important;
+  }
+
+  .speler {
+    width: 200px !important;
+    font-size: 1.2em !important;
+    padding: 2px 4px !important;
+    line-height: 1.1em !important;
+    margin: 0 5px !important;
+    height: auto !important;
+    box-sizing: border-box !important;
+  }
+
+  .pijl-links-boven {
+    display: none !important;
+  }
+}
+@media only screen and (device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) {
+  .spel-knoppen {
+    transform: translateX(-30px); /* schuift knoppen meer naar links */
+  }
+}
+@media (max-height: 750px) {
+  .spel-container {
+    transform: scale(0.9);
+    transform-origin: top;
+  }
+
+  .spel-scherm {
+    overflow-y: auto;
+  }
+
+  .spel-knoppen {
+    margin-top: 5px;
+  }
+
+  .score-container {
+    gap: 30px; /* eventueel iets compacter maken */
+  }
+}
+@media (max-height: 650px) {
+  .spel-container {
+    transform: scale(0.8);
+  }
+}
+@media only screen and (max-height: 700px) and (min-width: 900px) {
+  #score-container {
+    position: static !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    gap: 40px !important;
+    margin-top: -50px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .stapel.speler {
+    width: 200px !important;
+    font-size: 1.4em !important;
+    padding: 10px !important;
+  }
+
+  .kaart-stapel {
+    height: 65px !important;
+  }
+
+  .kaartje-in-stapel {
+    width: 42px !important;
+    height: 62px !important;
+  }
+
+  /* Duw kaarten wat omhoog */
+  .kaart-container {
+    margin-bottom: 0px !important;
+  }
+}
+@media only screen and (max-width: 900px) and (min-device-width: 601px) and (hover: hover) {
+  #score-container {
+    position: static !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    gap: 30px !important;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    flex-wrap: wrap !important;
+  }
+
+  .speler {
+    width: 200px !important;
+    font-size: 1.4em !important;
+    padding: 8px !important;
+    box-sizing: border-box !important;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .spel-links {
+    position: absolute !important;
+    top: 20px !important;
+    left: 10px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    z-index: 1000;
+  }
+
+  #score-container {
+    position: absolute !important;
+    top: 120px !important;      /* zakt onder de knoppen */
+    left: 10px !important;      /* staat ook tegen linkerrand */
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 15px !important;
+    z-index: 900;
+  }
+
+  .speler {
+    width: 200px !important;
+    font-size: 1.2em !important;
+    text-align: left !important;
+    margin-left: 0 !important;
+  }
+}
+@media only screen and (max-width: 1024px) and (max-height: 800px) {
+  .spel-links {
+    position: fixed !important;
+    top: 20px !important;
+    left: 10px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+    z-index: 1000 !important;
+  }
+
+  #score-container {
+    position: fixed !important;
+    top: 240px !important;
+    left: 0px !important;                    /* ← helemaal links */
+    margin-left: 0 !important;              /* ← GEEN marge meer */
+    width: 220px !important;                /* ← smalle vaste breedte */
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 15px !important;
+    z-index: 900 !important;
+    background-color: transparent !important; /* geen vreemde witruimte */
+  }
+
+  .speler {
+    width: 200px !important;
+    font-size: 1.2em !important;
+    margin: 0 !important;                  /* ← alle marge verwijderen */
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    text-align: left !important;
+    box-sizing: border-box !important;
+  }
+
+  .spelbord {
+    margin-top: 520px !important;          /* zodat het niet overlapt */
+  }
+}
+@media only screen and (device-width: 1600px) and (device-height: 2560px) and (orientation: landscape) {
+  .kaart-container {
+    margin-top: -40px !important; /* schuift kaarten omhoog */
+  }
+
+  .spelbord {
+    margin-top: 20px !important; /* optioneel, als er extra ruimte boven was */
+  }
+}
+@media only screen and (min-width: 1280px) and (max-height: 800px) and (orientation: landscape) {
+  .kaart-container {
+    margin-top: -80px !important;
+  }
+
+  #spelbord {
+    margin-top: 0px !important;
+  }
+
+  .spel-container {
+    padding-top: 0 !important;
+    margin-top: -30px !important;
+  }
+
+  /* Testlabel zichtbaar maken om te controleren of actief */
+  body::before {
+    content: "GALAXY S4 ACTIEF";
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: darkgreen;
+    color: white;
+    font-size: 20px;
+    z-index: 9999;
+    padding: 5px;
+  }
+}
+@media only screen and (max-width: 1140px) and (max-height: 730px) and (orientation: landscape) {
+  .spelbord {
+    margin-top: 10px !important; /* dichter bij de titel */
+  }
+
+  .kaart-container {
+    margin-top: -50px !important; /* kaarten zelf omhoog */
+  }
+}

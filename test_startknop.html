@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>TEST - Handje Startknop</title>
+  <style>
+    button {
+      padding: 10px 20px;
+      font-size: 1.1em;
+      border: none;
+      border-radius: 10px;
+      background-color: #ccc;
+      color: #fff;
+      transition: background-color 0.3s;
+      cursor: not-allowed;
+    }
+    button:enabled {
+      background-color: #00b4d8;
+      color: #fff;
+      cursor: pointer;
+    }
+    button:hover:enabled,
+    button:active:enabled {
+      background-color: #0099c4;
+      color: white;
+    }
+    .active { background: #0077b6 !important; }
+  </style>
+</head>
+<body>
+  <button class="keuze" data-type="maal">Maal</button>
+  <button class="keuze" data-type="delen">Delen</button>
+  <button class="tafel" data-tafel="1">1</button>
+  <button class="tafel" data-tafel="2">2</button>
+  <br><br>
+  <button id="startSpel" disabled>Maak eerst je keuzes</button>
+  <script>
+    let geselecteerdeSoort = null;
+    let geselecteerdeTafels = [];
+    const startKnop = document.getElementById('startSpel');
+    function checkKeuzes() {
+      const allesGekozen = geselecteerdeSoort && geselecteerdeTafels.length > 0;
+      startKnop.disabled = !allesGekozen;
+      startKnop.textContent = allesGekozen ? "Start spel" : "Maak eerst je keuzes";
+    }
+    document.querySelectorAll('.keuze').forEach(button => {
+      button.addEventListener('click', function () {
+        document.querySelectorAll('.keuze').forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+        geselecteerdeSoort = this.dataset.type;
+        checkKeuzes();
+      });
+    });
+    document.querySelectorAll('.tafel').forEach(button => {
+      button.addEventListener('click', function () {
+        this.classList.toggle('active');
+        const tafel = this.dataset.tafel;
+        if (geselecteerdeTafels.includes(tafel)) {
+          geselecteerdeTafels = geselecteerdeTafels.filter(t => t !== tafel);
+        } else {
+          geselecteerdeTafels.push(tafel);
+        }
+        checkKeuzes();
+      });
+    });
+    checkKeuzes();
+
+    // Dit is het event om het spel te starten!
+    startKnop.addEventListener('click', function() {
+      alert('Je kan nu beginnen!');
+    });
+  </script>
+</body>
+</html>
+
+
+

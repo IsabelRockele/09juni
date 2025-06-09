@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Test Wisselknop v7 – zonder verspringing</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    #wissel-vak {
+      width: 300px; height: 200px;
+      background: #eef;
+      border: 2px dashed #88a;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .wissel-knop {
+      padding: 10px 20px;
+      background: #0a84ff;
+      color: white;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .tool {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: gold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      user-select: none;
+      touch-action: none;
+    }
+    .cirkel {
+      width: 70px; height: 70px;
+      border: 2px solid #aaa;
+      border-radius: 50%;
+      margin: 5px;
+      position: relative;
+      display: inline-block;
+    }
+    #cirkels-container {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 400px;
+    }
+    #groene-schijf {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background-color: green;
+      color: white;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+</head>
+<body>
+  <h2>Test Wisselknop v7 – zonder verspringing</h2>
+  <div id="wissel-vak">
+    <div id="groene-schijf">10</div>
+    <button class="wissel-knop">Wissel om</button>
+  </div>
+  <div id="cirkels-container"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const knop = document.querySelector('.wissel-knop');
+      const groeneSchijf = document.getElementById('groene-schijf');
+
+      const container = document.getElementById("cirkels-container");
+      for (let i = 0; i < 10; i++) {
+        const cirkel = document.createElement("div");
+        cirkel.className = "cirkel";
+        container.appendChild(cirkel);
+      }
+
+      knop.addEventListener('click', () => {
+        const cirkels = document.querySelectorAll('.cirkel');
+
+        for (let i = 0; i < 10 && i < cirkels.length; i++) {
+          const schijf = document.createElement("div");
+          schijf.className = "tool";
+          schijf.textContent = "1";
+
+          cirkels[i].appendChild(schijf);
+
+          schijf.addEventListener('pointerdown', e => {
+            const el = e.target;
+
+            // Bepaal offset vóór DOM-verplaatsing
+            const rect = el.getBoundingClientRect();
+            const offsetX = e.clientX - rect.left;
+            const offsetY = e.clientY - rect.top;
+
+            const absLeft = window.scrollX + rect.left;
+            const absTop = window.scrollY + rect.top;
+
+            el.style.position = 'absolute';
+            el.style.left = absLeft + 'px';
+            el.style.top = absTop + 'px';
+            el.style.transform = 'none'; // ✅ verwijder verspringing
+            document.body.appendChild(el);
+
+            el.setPointerCapture(e.pointerId);
+
+            function move(ev) {
+              el.style.left = (ev.clientX - offsetX) + 'px';
+              el.style.top = (ev.clientY - offsetY) + 'px';
+            }
+
+            function up(ev) {
+              document.removeEventListener('pointermove', move);
+              document.removeEventListener('pointerup', up);
+            }
+
+            document.addEventListener('pointermove', move);
+            document.addEventListener('pointerup', up);
+          });
+        }
+
+        groeneSchijf.remove();
+        knop.remove();
+      });
+    });
+  </script>
+</body>
+</html>
