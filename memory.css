@@ -298,7 +298,7 @@ button.btn-terug:focus {
 
   #score-container {
     position: fixed !important;
-    top: 240px !important;
+    top: 30px !important;
     left: 0px !important;                    /* ← helemaal links */
     margin-left: 0 !important;              /* ← GEEN marge meer */
     width: 220px !important;                /* ← smalle vaste breedte */
@@ -339,27 +339,17 @@ button.btn-terug:focus {
   }
 
   #spelbord {
-    margin-top: 0px !important;
+    margin-top: 6% !important;
   }
 
   .spel-container {
     padding-top: 0 !important;
     margin-top: -30px !important;
   }
-
-  /* Testlabel zichtbaar maken om te controleren of actief */
-  body::before {
-    content: "GALAXY S4 ACTIEF";
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: darkgreen;
-    color: white;
-    font-size: 20px;
-    z-index: 9999;
-    padding: 5px;
-  }
+  #score-container {
+  top: 30px !important;     /* lager zetten = visueel hoger */
 }
+
 @media only screen and (max-width: 1140px) and (max-height: 730px) and (orientation: landscape) {
   .spelbord {
     margin-top: 10px !important; /* dichter bij de titel */
