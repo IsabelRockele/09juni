@@ -139,13 +139,13 @@ button.btn-terug:hover, button.btn-terug:focus { background-color: #e53935 !impo
 @media screen and (min-width: 1300px) and (orientation: landscape) {
   .spelbord {
     position: absolute !important;
-    left: 160px !important;
+    left: 120px !important;
     top: 20px !important;
   }
   #score-container {
     position: absolute !important;
-    left: -150px !important;
-    top: 100px !important;
+    left: -200px !important;
+    top: 40px !important;
     right: auto !important;
     flex-direction: column !important;
     align-items: flex-start !important;
