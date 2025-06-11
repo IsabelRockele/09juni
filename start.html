@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rekenapp voor Kinderen</title>
+    <link rel="stylesheet" href="start.css">
     <style>
     /* Basis reset en box-sizing */
     * {
@@ -235,7 +236,8 @@
     }S
 </style>
 </head>
-<body>
+<body class="layout">
+<main>
     <div class="header">
         <img src="start_afbeeldingen/letters.png" alt="Titel">
     </div>
@@ -288,7 +290,10 @@ window.addEventListener("load", checkOriëntatie);
 window.addEventListener("resize", checkOriëntatie);
 window.addEventListener("orientationchange", checkOriëntatie);
 </script>
+</main>
+<footer class="copyright">
+  © Isabel Rockelé, 2025. Alle rechten voorbehouden.
+</footer>
 
 </body>
 </html>
-
