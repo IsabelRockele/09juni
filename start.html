@@ -5,11 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kies leerjaar</title>
 
-  <!-- App-iconen voor toevoegen aan beginscherm op iPad/tablet -->
+  <!-- App-iconen -->
   <link rel="apple-touch-icon" sizes="180x180" href="start_afbeeldingen/Reken_met_Zisa_1024x1024.png">
   <link rel="icon" type="image/png" sizes="512x512" href="start_afbeeldingen/Reken_met_Zisa_512x512.png">
 
-  <!-- Voor web-app gedrag op iPad (volledig scherm, geen Safari-balk) -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Reken met Zisa">
@@ -17,6 +16,7 @@
   <link rel="stylesheet" href="start.css">
 </head>
 <body class="layout">
+<main>
   <h1>Kies het juiste leerjaar</h1>
 
   <div class="leerjaar-raster">
@@ -29,8 +29,19 @@
     <a href="start_leerjaar3.html">
       <img src="start_afbeeldingen/karl_leerjaar3.png" alt="Derde leerjaar">
     </a>
+    <a href="#" onclick="toonNogInWerking(event)">
+      <img src="start_afbeeldingen/lana_leerjaar4.png" alt="Vierde leerjaar">
+    </a>
+    <a href="#" onclick="toonNogInWerking(event)">
+      <img src="start_afbeeldingen/leon_leerjaar5.png" alt="Vijfde leerjaar">
+    </a>
+    <a href="#" onclick="toonNogInWerking(event)">
+      <img src="start_afbeeldingen/dex_leerjaar6.png" alt="Zesde leerjaar">
+    </a>
   </div>
-  <div id="draai-melding" style="
+</main>
+
+<div id="draai-melding" style="
   display: none;
   position: fixed;
   top: 0;
@@ -52,11 +63,11 @@
   </div>
   <img src="start_afbeeldingen/kantel_ipad.png" alt="Kantel uitleg" style="max-width: 300px; margin-top: 25px;">
 </div>
-</main>
 
-  <footer class="copyright">
+<footer class="copyright">
   © Isabel Rockelé, 2025. Alle rechten voorbehouden.
 </footer>
+
 <script>
   function checkOriëntatie() {
     const melding = document.getElementById("draai-melding");
@@ -65,6 +76,10 @@
     } else {
       melding.style.display = "none";
     }
+  }
+  function toonNogInWerking(event) {
+    event.preventDefault();
+    alert("Hier wordt nog aan gewerkt.");
   }
   window.addEventListener("load", checkOriëntatie);
   window.addEventListener("resize", checkOriëntatie);
