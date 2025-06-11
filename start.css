@@ -92,3 +92,19 @@ button.spelers.active {
 .start-blok {
     margin-top: 30px;
 }
+footer.copyright {
+  text-align: center;
+  font-size: 0.9em;
+  color: #666;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px 0;
+  margin-top: 40px;
+}
+body.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+main {
+  flex: 1;
+}
