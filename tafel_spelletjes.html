@@ -84,9 +84,28 @@
     .btn-terug:focus {
       background-color: #e53935;
     }
-  </style>
+  
+body.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+main {
+  flex: 1;
+}
+footer.copyright {
+  text-align: center;
+  font-size: 0.9em;
+  color: #666;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px 0;
+  margin-top: 40px;
+}
+
+</style>
 </head>
-<body>
+<body class="layout">
+<main>
 
   <button onclick="location.href='tafel_overzicht.html'" class="btn-actie btn-terug">
     <img src="tafels_afbeeldingen/pijl.png" alt="Terug" style="height: 24px;">
@@ -111,6 +130,10 @@
       </div>
     </div>
   </div>
+</main>
+<footer class="copyright">
+  © Isabel Rockelé, 2025. Alle rechten voorbehouden.
+</footer>
+
 </body>
 </html>
-
