@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -7,25 +8,28 @@
   <link rel="stylesheet" href="style.css">
   <style>
     body {
-      font-family: sans-serif;
-      background-image: url('start_afbeeldingen/achtergrond.png');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      margin: 0;
-      padding: 0;
-    }
+  font-family: sans-serif;
+  background-image: url('start_afbeeldingen/achtergrond.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
-      text-align: center;
-      padding-top: 5vh;
-      width: 100%;
-    }
+.container {
+  flex: 1; /* neemt beschikbare ruimte */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  padding-top: 5vh;
+  width: 100%;
+}
 
     h1 {
       font-size: 2.5em;
@@ -102,6 +106,16 @@
     .knop:hover {
       opacity: 0.9;
     }
+
+    footer.copyright {
+      text-align: center;
+      font-size: 0.9em;
+      color: #666;
+      background-color: rgba(255, 255, 255, 0.8); /* wit vakje */
+      padding: 10px 0;
+      margin-top: 40px;
+    }
+
   </style>
 </head>
 <body>
@@ -125,6 +139,9 @@
       </div>
     </div>
   </div>
+  <footer class="copyright">
+  © Isabel Rockelé, 2025. Alle rechten voorbehouden.
+</footer>
 </body>
 </html>
 
