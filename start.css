@@ -2,13 +2,13 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Comic Sans MS', sans-serif;
-  background-color: #6fa6e2; /* zacht oranje */
+  background-color: #6fa6e2;
   text-align: center;
 }
 
 h1 {
   color: #1a237e;
-  margin-top: 40px;
+  margin-top: 20px;
   font-size: 2.5em;
 }
 
@@ -16,14 +16,16 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 80px;
-  padding: 40px;
+  gap: 60px 40px;
+  padding: 10px 0;
+  max-width: 700px;
+  margin: 0 auto;
 }
 
 .leerjaar-raster a {
   display: block;
-  width: 180px;
-  background-color: #ffe5cc; /* zacht oranje */
+  width: 160px;
+  background-color: #ffe5cc;
   border-radius: 30px;
   padding: 20px;
   box-sizing: border-box;
@@ -44,84 +46,21 @@ h1 {
   cursor: pointer;
 }
 
-@media (max-width: 768px) {
-  .leerjaar-raster a {
-    width: 45%;
-  }
-}
-
-@media (max-width: 480px) {
-  .leerjaar-raster a {
-    width: 80%;
-  }
-
-  h1 {
-    font-size: 2em;
-  }
-}
 footer.copyright {
   text-align: center;
   font-size: 0.9em;
   color: #666;
   background-color: rgba(255, 255, 255, 0.8);
   padding: 10px 0;
-  margin-top: 280px;
+  margin-top: auto;
 }
+
 body.layout {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
+
 main {
   flex: 1;
-}
-@media only screen and (device-width: 1024px) and (device-height: 768px) {
-  body {
-    font-size: 0.9em;
-  }
-
-  .leerjaar-raster {
-    gap: 60px;
-    padding: 20px;
-  }
-
-  .leerjaar-raster a {
-    width: 180px;
-  }
-
-  h1 {
-    font-size: 2em;
-    margin-top: 20px;
-  }
-
-  footer.copyright {
-    font-size: 0.8em;
-    margin-top: 340px;
-    padding: 6px 0;
-  }
-}
-@media (max-width: 1400px) {
-  body {
-    font-size: 0.9em;
-  }
-
-  .leerjaar-raster {
-    gap: 80px;
-    padding: 20px;
-  }
-
-  .leerjaar-raster a {
-    width: 150px;
-  }
-
-  h1 {
-    font-size: 2em;
-    margin-top: 20px;
-  }
-
-  footer.copyright {
-    font-size: 0.8em;
-    margin-top: 350px;
-    padding: 6px 0;
-  }
 }
