@@ -290,7 +290,7 @@
 </div>
 
     <div id="draai-melding" style="
-    display: none;
+    visibility: hidden;
     position: fixed;
     top: 0;
     left: 0;
@@ -317,10 +317,10 @@
 function checkOriëntatie() {
   const melding = document.getElementById("draai-melding");
   if (window.innerHeight > window.innerWidth) {
-    melding.style.display = "flex";
-  } else {
-    melding.style.display = "none";
-  }
+  melding.style.visibility = "visible";
+} else {
+  melding.style.visibility = "hidden";
+}
 }
 window.addEventListener("load", checkOriëntatie);
 window.addEventListener("resize", checkOriëntatie);
