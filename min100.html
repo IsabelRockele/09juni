@@ -70,6 +70,19 @@
   <script src="drop_min100.js"></script>
   <script src="vuilbak.js"></script>
   <script src="wissel_min.js"></script>
+  <script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const terugLink = params.get("terug") || "index.html"; // standaardwaarde: index.html
+
+    const knopTerug = document.getElementById("terug");
+    if (knopTerug) {
+      knopTerug.addEventListener("click", () => {
+        window.location.href = terugLink;
+      });
+    }
+  });
+</script>
   
 </body>
 </html>
