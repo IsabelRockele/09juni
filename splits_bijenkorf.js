@@ -6,11 +6,6 @@ let scoreFout = 0;
 let oefeningen = [];
 let huidigeOefening = 0;
 
-const ua = navigator.userAgent.toLowerCase();
-if (ua.includes("sm-t830") || ua.includes("galaxy tab s4")) {
-  document.body.classList.add("galaxy-s4");
-}
-
 window.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
   maxGetal = parseInt(params.get("max")) || 5;
@@ -70,12 +65,27 @@ function toonBijen(juisteAntwoord) {
   container.innerHTML = "";
   let antwoorden = [juisteAntwoord];
 
+  // Voeg een klassieke fout toe: totaal + bekend deel
+  const oef = oefeningen[huidigeOefening];
+  const foutOptelling = oef.totaal + oef.bekend;
+  if (
+    foutOptelling !== juisteAntwoord &&
+    !antwoorden.includes(foutOptelling) &&
+    foutOptelling <= maxGetal
+  ) {
+    antwoorden.push(foutOptelling);
+  }
+
+  // Voeg tot er 4 unieke antwoorden zijn
   while (antwoorden.length < 4) {
     const willekeurig = Math.floor(Math.random() * (maxGetal + 1));
     if (!antwoorden.includes(willekeurig)) antwoorden.push(willekeurig);
   }
+
+  // Door elkaar schudden
   antwoorden.sort(() => 0.5 - Math.random());
 
+  // Maak de bijtjes
   antwoorden.forEach(antwoord => {
     const bij = document.createElement("div");
     bij.className = "bij";
