@@ -375,5 +375,18 @@ document.getElementById('terug').addEventListener('click', () => {
 <script src="drop_plus100.js"></script>
 <script src="wissel_plus.js"></script>
 <script src="app_plus100.js"></script> <!-- bevat reset en knopwerking -->
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const terugLink = params.get("terug") || "index.html";
+
+    const knopTerug = document.getElementById("terug");
+    if (knopTerug) {
+      knopTerug.addEventListener("click", () => {
+        window.location.href = terugLink;
+      });
+    }
+  });
+</script>
 </body>
 </html>
