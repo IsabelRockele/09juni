@@ -69,9 +69,8 @@ function toonBijen(juisteAntwoord) {
   const oef = oefeningen[huidigeOefening];
   const foutOptelling = oef.totaal + oef.bekend;
   if (
-    foutOptelling !== juisteAntwoord &&
-    !antwoorden.includes(foutOptelling) &&
-    foutOptelling <= maxGetal
+  foutOptelling !== juisteAntwoord &&
+  !antwoorden.includes(foutOptelling)
   ) {
     antwoorden.push(foutOptelling);
   }
