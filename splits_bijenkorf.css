@@ -323,7 +323,44 @@ a.btn-actie {
     transform: translate(-50%, -50%) scale(0.75) !important;
   }
 }
+.juf-bibi-feedback {
+  position: absolute;
+  top: 30px;
+  left: -320px; /* verder naar links */
+  text-align: center;
+  z-index: 10;
+}
 
+.juf-bibi-feedback .feedback-tekst {
+  background-color: white;
+  border-radius: 12px;
+  padding: 8px;
+  font-size: 1.4em;
+  color: #b71c1c;
+  font-weight: bold;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  margin-bottom: 8px;
+  max-width: 200px;
+}
+
+.juf-bibi-feedback .juf-bibi-afbeelding {
+  width: 160px; /* vergroot Bibi */
+}
+#feedbackAfbeelding {
+  width: 280px !important;
+  max-width: 80% !important;
+  height: auto !important;
+  display: block;
+  margin: 1rem auto;
+}
+#feedbackContainer {
+  margin-top: -120px; /* standaardafstand bovenaan */
+  position: relative;
+  top: -40px; /* schuift alles hoger in beeld */
+}
+#feedbackText {
+  font-size: 3rem; /* of bv. 1.5rem, 24px, ... */
+}
 
 
 
