@@ -95,17 +95,31 @@ header h1 {
   filter: brightness(0.5) sepia(1) hue-rotate(-50deg) saturate(5);
 }
 
-#feedbackContainer {
-  position: absolute;
-  bottom: 160px;
-  right: 40px;
-  font-size: 1.8em;
+##feedbackContainer {
+  /* Centreert de box perfect in het midden van het scherm */
+  position: fixed; /* 'Fixed' zodat het ook werkt als je scrollt */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 500px; /* Zorgt dat de box niet te breed wordt op grote schermen */
+
+  /* Vormgeving als een moderne pop-up */
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  z-index: 100; /* Zorgt dat het boven alle andere elementen verschijnt */
+
+  /* Centreert de inhoud (afbeelding en tekst) in de box */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px; /* Creëert ruimte tussen de afbeelding en de tekst */
+
+  /* De bestaande teksteigenschappen */
+  font-size: 1.6em;
   color: #003049;
-  background: rgba(173, 216, 230, 0.7);
-  padding: 10px;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  z-index: 25;
 }
 
 @keyframes zweef {
