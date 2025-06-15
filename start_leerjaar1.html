@@ -110,6 +110,9 @@
     width: 250px;
     white-space: nowrap;
     text-align: center;
+    display: flex;         /* NIEUW */
+    align-items: center;   /* NIEUW: voor verticale centrering */
+    justify-content: center; /* NIEUW: voor horizontale centrering */
 }
 
     .button:hover {
@@ -184,7 +187,7 @@
             position: relative; /* Haal absolute positionering weg, laat het in de flow */
             top: auto;
             bottom: auto;
-            flex-direction: row; /* Knoppen weer naast elkaar als er breedte is */
+            flex-direction: row; /* Knoppen weer naast elkaar als er ruimte is */
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
@@ -255,20 +258,11 @@
                           /* of pas aan met bijv. top: 60vh; */
             /* De knoppen zullen horizontaal centreren door de basisstijlen */
         }
-
-        /* Lettergrootte en padding van knoppen kunnen hier ook worden aangepast indien nodig,
-           maar waarschijnlijk zijn de basisstijlen (font-size: 1.5em; padding: 30px 30px;) hier goed.
-        .button {
-            font-size: 1.5em;
-            padding: 30px 30px;
-        }
-        */
     }S
 </style>
 </head>
 <body class="layout">
-    <!-- Uniforme terugknop -->
-<button class="btn-actie btn-terug" onclick="window.location.href='start.html'">
+    <button class="btn-actie btn-terug" onclick="window.location.href='start.html'">
   <img src="tafels_afbeeldingen/pijl.png" alt="pijl" style="height: 24px;" />
   Terug
 </button>
@@ -280,38 +274,19 @@
         <img src="start_afbeeldingen/bibi_leerjaar1.png" alt="Juf Zisa">
     </div>
     <div class="buttons">
-    <a href="hulpschema_leerjaar1.html">
-  <button class="button">Hulp + en -</button>
-</a>
+        <a class="button" href="hulpschema_leerjaar1.html">Hulp + en -</a>
+        <a class="button" href="splits_spelletjes.html">Splitsen</a>
+        <a class="button" href="#" onclick="alert('Even geduld. Hier wordt nog aan gewerkt.'); return false;">
+        + en - tot 20
+        </a>
+    </div>
 
-<a href="splits_spelletjes.html">
-  <button class="button">Splitsen</button>
-</a>
-</div>
-
-    <div id="draai-melding" style="
-    visibility: hidden;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: #fff3cd;
-    color: #856404;
-    z-index: 9999;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 20px;
-">
-    <div style="font-size: 1.8em; max-width: 90vw;">
-    📱 Kantel je iPad naar de zijkant (landscape) om verder te gaan.
-  </div>
-  <img src="start_afbeeldingen/kantel_ipad.png" alt="Kantel uitleg" style="max-width: 300px; margin-top: 25px;">
-</div>
-
+    <div id="draai-melding" style="visibility: hidden; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: #fff3cd; color: #856404; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px;">
+        <div style="font-size: 1.8em; max-width: 90vw;">
+            📱 Kantel je iPad naar de zijkant (landscape) om verder te gaan.
+        </div>
+        <img src="start_afbeeldingen/kantel_ipad.png" alt="Kantel uitleg" style="max-width: 300px; margin-top: 25px;">
+    </div>
 
 <script>
 function checkOriëntatie() {
@@ -334,4 +309,3 @@ window.addEventListener("orientationchange", checkOriëntatie);
 <script src="force-start.js"></script>
 </body>
 </html>
-
