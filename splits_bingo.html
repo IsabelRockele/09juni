@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bibi's Honingjacht</title>
+    <title>Bibi's bingo</title>
     <style>
         :root { --board-gap: 1.5vmin; }
         body { background-color: #fefae0; font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; }
@@ -11,7 +11,7 @@
         #game-container { width: 100%; max-width: 1400px; margin: auto; }
         .hidden { display: none !important; }
         
-        /* AANPASSING: Keuzeblok compacter gemaakt */
+        /* Keuzeblok */
         .keuze-blok { background-color: #fff; border-radius: 15px; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 20px auto; max-width: 650px; text-align: center; }
         .keuze-blok h2 { margin-top: 0; margin-bottom: 10px; }
         .bingo-afbeelding { max-width: 160px; margin: 0 auto 15px; display: block; }
@@ -22,6 +22,7 @@
         #start-spel-knop { padding: 14px 28px; font-size: 1.4em; color: white; border: none; border-radius: 12px; cursor: pointer; background-color: #2e7d32; }
         #start-spel-knop:disabled { background-color: #aaa; cursor: not-allowed; }
         
+        /* Spelbord */
         #game-board-container { display: flex; align-items: center; justify-content: flex-start; gap: 20px; width: 100%; margin-left: 120px; }
         .game-actions { position: fixed; top: 20px; left: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 1000; }
         #game-board { max-width: 75vw;display: grid; grid-template-columns: repeat(11, 1fr); grid-template-rows: repeat(7, 1fr); gap: var(--board-gap); height: 85vh; max-height: 800px; aspect-ratio: 11 / 7; flex-grow: 1; position: relative; }
@@ -55,6 +56,8 @@
         .spin-btn-style { padding: 8px 16px; font-size: 1em; color: #fff; background: #4CAF50; border-radius: 8px; cursor: pointer; border: none; }
         .spin-btn-style:disabled { background: #aaa; }
         .exercise-text { position: relative; z-index: 12; }
+        
+        /* Modals en Overlays */
         #exercise-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2000; display: flex; justify-content: center; align-items: center; pointer-events: none; }
         .modal-content { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); padding: 25px; border-radius: 20px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.4); max-width: 450px; width: 90%; transform: scale(1); pointer-events: auto; }
         #modal-question { font-size: 3.5em; margin-bottom: 15px; color: #333; }
@@ -76,11 +79,23 @@
         .firework.blue::before { background: radial-gradient(circle, #448aff, transparent); box-shadow: 0 0 15px #448aff; }
         .firework::before { content: ''; position: absolute; left: -150px; top: -150px; width: 300px; height: 300px; opacity: 0; border-radius: 50%; animation: explode 1.5s ease-out forwards; }
         
+        /* AANPASSING: Animatie voor winnende cellen */
+        .winning-cell-player1 { animation: flash-red 0.5s 4; }
+        .winning-cell-player2 { animation: flash-blue 0.5s 4; }
+        
         @keyframes fadeInScale { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
         @keyframes explode {
             0% { transform: scale(0.1); opacity: 1; }
             70% { opacity: 0.8; }
             100% { transform: scale(1.5); opacity: 0; }
+        }
+        @keyframes flash-red {
+            0%, 100% { background-color: #e53935; color: white; transform: scale(1.05); }
+            50% { background-color: #ff8a80; transform: scale(1); }
+        }
+        @keyframes flash-blue {
+            0%, 100% { background-color: #0077b6; color: white; transform: scale(1.05); }
+            50% { background-color: #82b1ff; transform: scale(1); }
         }
     </style>
 </head>
@@ -185,7 +200,7 @@
         function checkCanStart() {
             if (playerCount && targetNumber) {
                 startSpelKnop.disabled = false;
-                startSpelKnop.textContent = "Start het Spel!";
+                startSpelKnop.textContent = "Start het spel!";
             }
         }
 
@@ -281,7 +296,6 @@
             vasteTerugKnop.classList.remove('hidden');
             gameActive = false;
 
-            // AANPASSING: Reset keuzes
             playerCount = null;
             targetNumber = null;
             playerCountButtons.forEach(k => k.classList.remove('active'));
@@ -336,7 +350,7 @@
             currentPlayer = 1;
             playerPositions = { 1: 0, 2: 0 };
             gameActive = true;
-            document.querySelectorAll('.cell').forEach(c => c.classList.remove('covered-player1', 'covered-player2'));
+            document.querySelectorAll('.cell').forEach(c => c.classList.remove('covered-player1', 'covered-player2', 'winning-cell-player1', 'winning-cell-player2'));
             const spinBtn = gameBoard.querySelector('#spin-btn');
             if(spinBtn) spinBtn.disabled = false;
             const feedbackArea = gameBoard.querySelector('#feedback-area');
@@ -501,7 +515,16 @@
                 if (combo.every(index => coveredIndices.has(index))) {
                     gameActive = false;
                     gameBoard.querySelector('#spin-btn').disabled = true;
-                    setTimeout(() => showWinScreen(player), 500);
+
+                    const winningCells = combo.map(index => allCells[index]);
+                    const winningClass = player === 1 ? 'winning-cell-player1' : 'winning-cell-player2';
+                    winningCells.forEach(cell => cell.classList.add(winningClass));
+
+                    setTimeout(() => {
+                        winningCells.forEach(cell => cell.classList.remove(winningClass));
+                        showWinScreen(player);
+                    }, 2000);
+                    
                     return;
                 }
             }
