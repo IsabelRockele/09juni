@@ -9,10 +9,27 @@ document.addEventListener("DOMContentLoaded", function () {
   const tafelKnoppen = document.querySelectorAll(".tafel");
   const levelKnoppen = document.querySelectorAll(".level");
   const startKnop = document.getElementById("startOefening");
+  const terugKnop = document.getElementById("btn-terug"); // Nieuw
 
   const meldingType = document.getElementById("meldingType");
   const meldingTafels = document.getElementById("meldingTafels");
   const meldingLevel = document.getElementById("meldingLevel");
+  
+  // AANGEPAST: Slimme terugknop-logica
+  // We bepalen de terug-URL op basis van de vorige pagina.
+  const referrer = document.referrer;
+  let terugUrl = 'start_leerjaar3.html'; // Standaard terug-pagina
+
+  if (referrer.includes('tafel_overzicht.html')) {
+    terugUrl = 'tafel_overzicht.html';
+  } else if (referrer.includes('start_leerjaar3.html')) {
+    terugUrl = 'start_leerjaar3.html';
+  }
+  
+  terugKnop.addEventListener('click', () => {
+    window.location.href = terugUrl;
+  });
+  // Einde aanpassing terugknop
 
   function checkKeuzes() {
     const allesGekozen = gekozenType && gekozenTafels.length > 0 && gekozenLevel;
@@ -60,7 +77,6 @@ document.addEventListener("DOMContentLoaded", function () {
   startKnop.addEventListener("click", function () {
     if (!gekozenType || gekozenTafels.length === 0 || !gekozenLevel) return;
 
-    // Hier kun je dit opslaan in localStorage of doorgeven als querystring
     sessionStorage.setItem("tafel_type", gekozenType);
     sessionStorage.setItem("tafels", JSON.stringify(gekozenTafels));
     sessionStorage.setItem("tafel_level", gekozenLevel);
@@ -76,4 +92,3 @@ document.addEventListener("DOMContentLoaded", function () {
 
   checkKeuzes();
 });
-
