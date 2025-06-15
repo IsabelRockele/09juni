@@ -1,4 +1,5 @@
-  /* Titel rechtsboven */
+/* tafels.css */
+
 header h1 {
   font-size: 2em;
   color: #333;
@@ -6,7 +7,6 @@ header h1 {
   text-align: center;
 }
 
-/* Oefening onderaan rechts naast de knop 'Terug naar start' */
 #vraagContainer {
   position: relative;
   margin: 40px auto 20px auto;
@@ -23,37 +23,81 @@ header h1 {
   right: 0;
 }
 
-/* Zeepbellen hoger starten en sneller omhoog */
+/* De container van de bel, nu ZONDER visuele eigenschappen */
 .bel {
   position: absolute;
-  bottom: -100px;
-  width: 100px;
-  height: 100px;
-  background: rgba(173, 216, 230, 0.7);
-  border-radius: 50%;
+  bottom: -80px;
+  width: 120px;
+  height: 120px;
+  background: none;
+  border-radius: 0;
   text-align: center;
-  line-height: 100px;
-  font-size: 2.2em;
+  line-height: 80px;
+  font-size: 2.4em;
   color: #003049;
   cursor: pointer;
-  animation: zweef 8s linear forwards;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  animation: zweef 10s linear forwards;
+  box-shadow: none; /* AANGEPAST */
   transition: transform 0.3s ease-out, opacity 0.3s, background-color 0.3s;
   pointer-events: auto;
-
-  /* Toegevoegd voor vloeiender animatie */
-  will-change: transform, opacity;
-  backface-visibility: hidden;
-
-  /* Slechts één z-index gebruiken */
-  z-index: 2;
+  z-index: 5;
 }
 
+.bel img {
+    width: 100%;
+    height: 100%;
+    transition: filter 0.3s, opacity 0.2s, transform 0.2s;
+}
 
-/* Zorg ervoor dat de feedback boven Zisa zichtbaar is */
+.bel .getal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2em;
+    color: #003049;
+    font-weight: normal;
+    text-shadow: 0 0 5px white;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+/* Animatie voor als de bel correct is */
+.bel.correct .getal,
+.bel.correct img {
+  opacity: 0;
+  transform: scale(0);
+  transition-duration: 0.4s;
+}
+
+.spetter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 15px;
+    height: 15px;
+    background: radial-gradient(circle, #87ceeb, #add8e6);
+    border-radius: 50%;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+}
+
+.bel.correct .spetter {
+    animation: splash 0.6s ease-out forwards;
+}
+
+.bel.correct .spetter:nth-child(3) { animation-delay: 0s; }
+.bel.correct .spetter:nth-child(4) { animation-delay: 0.05s; }
+.bel.correct .spetter:nth-child(5) { animation-delay: 0.1s; }
+.bel.correct .spetter:nth-child(6) { animation-delay: 0.15s; }
+
+/* AANGEPAST: De foute regel is weg, deze is nu correct */
+.bel.fout img {
+  filter: brightness(0.5) sepia(1) hue-rotate(-50deg) saturate(5);
+}
+
 #feedbackContainer {
   position: absolute;
-  bottom: 160px;  /* Zet feedback boven de oefening en Zisa */
+  bottom: 160px;
   right: 40px;
   font-size: 1.8em;
   color: #003049;
@@ -64,221 +108,51 @@ header h1 {
   z-index: 25;
 }
 
-/* Animatie voor de bellen */
 @keyframes zweef {
-  to {
-    transform: translateY(-1000px); /* Ze moeten helemaal bovenaan verdwijnen */
-    opacity: 0.9;
-  }
+  to { transform: translateY(-110vh); }
 }
+@keyframes splash {
+    0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5) translate(calc(var(--x, 0) * 120px), calc(var(--y, 0) * 120px));
+    }
+}
+
+
 .bad-onderaan {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   z-index: 5;
-  pointer-events: none; /* 💥 essentieel om klikken niet te blokkeren */
+  pointer-events: none;
 }
 .spel-gebied {
   position: relative;
 }
-
-#klokzone {
-  position: relative;
-  margin-top: 10px;
-  width: 180px;
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-#timer {
-  font-size: 2em;
-  font-weight: bold;
-  background: url('tafels_afbeeldingen/stopwatch.png') no-repeat left center;
-  background-size: 30px 30px;
-  padding-left: 8%;
-  margin-bottom: 8px;
-  width: 100%;             /* Zorgt dat hij de hele klokzone benut */
-  text-align: center;      /* Zorgt dat het uur mooi gecentreerd staat */
-}
-
-#visueleTimerContainer {
-  margin-top: 10px;
-  position: relative;
-  width: 160px;
-  height: 160px;
-  margin-top: 6px;
-  z-index: 1;
-}
-
-#klok-afbeelding {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-#timer-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-#scorebord {
-  position: relative;
-  margin-top: 10px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  z-index: 10;
-}
-
-.score-kolom {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 1.4em;
-  font-weight: bold;
-  color: #003049;
-}
-
-.score-kolom img {
-  width: 50px;
-  height: auto;
-  margin-bottom: 6px;
-}
-#scoreJuist {
-  color: green;
-}
-
-#scoreFout {
-  color: red;
-}
-.pijl-knop {
-  background-color: #90e0ef;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  width: 60px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-}
-
-.pijl-knop img {
-  height: 24px;
-  width: 24px;
-  display: block; /* voorkomt extra witruimte onder de afbeelding */
-  margin: 0;       /* reset eventuele marges */
-  padding: 0;
-}
-button {
-  padding: 10px 20px;
-  font-size: 1.1em;
-  border: none;
-  border-radius: 10px;
-  background-color: #ccc;
-  color: #fff;
-  transition: background-color 0.3s;
-  cursor: not-allowed;
-}
-
-button:disabled {
-  background-color: #ccc;
-  color: #fff;
-  cursor: not-allowed;
-}
-button:enabled {
-  background-color: #00b4d8;
-  color: #fff;
-  cursor: pointer;
-}
-button:hover:enabled,
-button:active:enabled {
-  background-color: #0099c4;
-  color: #fff;
-}
-
-button.keuze,
-button.tafel {
-  background-color: #00b4d8;
-  color: white;
-  cursor: pointer;
-}
-
-button.keuze.active,
-button.tafel.active {
-  background-color: #0077b6;
-  color: white;
-}
-button.btn-opnieuw {
-  background-color: #2e7d32 !important;
-  color: #fff !important;
-  cursor: pointer;
-}
-button.btn-opnieuw:hover,
-button.btn-opnieuw:focus {
-  background-color: #219150 !important;
-}
-
-button.btn-terug {
-  background-color: #b71c1c !important;
-  color: #fff !important;
-  cursor: pointer;
-}
-button.btn-terug:hover,
-button.btn-terug:focus {
-  background-color: #e53935 !important;
-}
-
-#klok-en-scorezone {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
-}
-
-#score-container {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 140px; /* voldoende ruimte onder de knoppen bovenaan */
-  margin-bottom: 20px;
-  gap: 60px;
-}
-
-.stapel.speler {
-  width: 180px;
-  font-size: 1.5em;
-  padding: 6px;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-@media screen and (max-width: 768px) and (min-device-pixel-ratio: 2) {
-  .bel {
-    left: 100px !important; /* schuift de bellen rechts */
-  }
-}
-@media (max-width: 768px) {
-  #score-container {
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-  }
-}
+#klokzone { position: relative; margin-top: 10px; width: 180px; margin-left: auto; margin-right: auto; display: flex; flex-direction: column; align-items: center; text-align: center; }
+#timer { font-size: 2em; font-weight: bold; background: url('tafels_afbeeldingen/stopwatch.png') no-repeat left center; background-size: 30px 30px; padding-left: 8%; margin-bottom: 8px; width: 100%; text-align: center; }
+#visueleTimerContainer { margin-top: 10px; position: relative; width: 160px; height: 160px; margin-top: 6px; z-index: 1; }
+#klok-afbeelding { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: block; }
+#timer-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+#scorebord { position: relative; margin-top: 10px; display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 12px; z-index: 10; }
+.score-kolom { display: flex; flex-direction: column; align-items: center; font-size: 1.4em; font-weight: bold; color: #003049; }
+.score-kolom img { width: 50px; height: auto; margin-bottom: 6px; }
+#scoreJuist { color: green; }
+#scoreFout { color: red; }
+button { padding: 10px 20px; font-size: 1.1em; border: none; border-radius: 10px; background-color: #ccc; color: #fff; transition: background-color 0.3s; cursor: not-allowed; }
+button:disabled { background-color: #ccc; color: #fff; cursor: not-allowed; }
+button:enabled { background-color: #00b4d8; color: #fff; cursor: pointer; }
+button:hover:enabled, button:active:enabled { background-color: #0099c4; color: #fff; }
+button.keuze, button.tafel { background-color: #00b4d8; color: white; cursor: pointer; }
+button.keuze.active, button.tafel.active { background-color: #0077b6; color: white; }
+button.btn-opnieuw { background-color: #2e7d32 !important; color: #fff !important; cursor: pointer; }
+button.btn-opnieuw:hover, button.btn-opnieuw:focus { background-color: #219150 !important; }
+button.btn-terug { background-color: #b71c1c !important; color: #fff !important; cursor: pointer; }
+button.btn-terug:hover, button.btn-terug:focus { background-color: #e53935 !important; }
+#klok-en-scorezone { display: flex; flex-direction: column; align-items: center; margin-top: 20px; }
+#score-container { display: flex; justify-content: space-around; margin-top: 140px; margin-bottom: 20px; gap: 60px; }
+.stapel.speler { width: 180px; font-size: 1.5em; padding: 6px; margin-bottom: 20px; text-align: center; }
+@media screen and (max-width: 768px) and (min-device-pixel-ratio: 2) { .bel { left: 100px !important; } }
+@media (max-width: 768px) { #score-container { flex-direction: column; align-items: center; gap: 30px; } }
