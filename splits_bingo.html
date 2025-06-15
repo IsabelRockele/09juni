@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+TYPE html>
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
@@ -25,25 +25,26 @@
         /* Spelbord */
         #game-board-container { display: flex; align-items: center; justify-content: flex-start; gap: 20px; width: 100%; margin-left: 120px; }
         .game-actions { position: fixed; top: 20px; left: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 1000; }
-        #game-board { max-width: 75vw;display: grid; grid-template-columns: repeat(11, 1fr); grid-template-rows: repeat(7, 1fr); gap: var(--board-gap); height: 85vh; max-height: 800px; aspect-ratio: 11 / 7; flex-grow: 1; position: relative; }
-        .player-area { background-color: rgba(255, 255, 255, 0.8); padding: 1.5vmin; border-radius: 15px; text-align: center; grid-row: 3 / 6; transition: box-shadow 0.3s ease-in-out; display: flex; flex-direction: column; }
-        .player-area h2 { display: flex; align-items: center; justify-content: center; gap: 10px; }
+        #game-board { max-width: 80vw; display: grid; grid-template-columns: repeat(10, 1fr); grid-template-rows: repeat(6, 1fr); gap: var(--board-gap); height: 85vh; max-height: 700px; aspect-ratio: 10 / 6; flex-grow: 1; position: relative; }
+        .player-area { background-color: rgba(255, 255, 255, 0.8); padding: 1.5vmin; border-radius: 15px; text-align: center; grid-row: 2 / 5; transition: box-shadow 0.3s ease-in-out; display: flex; flex-direction: column; }
+        .player-area h2 { display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 2em; }
         .header-pawn { height: 1.5em; width: auto; }
-        #player1-area { grid-column: 3 / 6; }
-        #player2-area { grid-column: 7 / 10; }
+        /* AANPASSING: Centrering van de elementen */
+        #player1-area { grid-column: 3 / 5; }
+        .wheel-container { grid-area: 2 / 5 / 5 / 7; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
+        #player2-area { grid-column: 7 / 9; }
+        #controls { grid-column: 2 / 10; grid-row: 5 / 6; display: flex; align-items: center; justify-content: center; }
         .player1-active { box-shadow: 0 0 15px 5px #e53935; }
         .player2-active { box-shadow: 0 0 15px 5px #0077b6; }
-        .wheel-container { grid-area: 3 / 6 / 6 / 7; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
-        #controls { grid-column: 3 / 10; grid-row: 6 / 7; display: flex; align-items: center; justify-content: center; }
         .btn-actie { padding: 10px 20px; font-size: 1.2em; border: none; border-radius: 12px; cursor: pointer; color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 10px; }
         .terug-pijl { height: 20px; width: auto; }
         .btn-opnieuw { background-color: #2e7d32; }
         .btn-terug { background-color: #c62828; }
         .honeycomb-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5vmin; flex-grow: 1; align-content: center; }
-        .cell { width: 5.5vmin; height: 6.3vmin; background-color: #ffc107; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); display: flex; justify-content: center; align-items: center; font-size: 2.5vmin; font-weight: bold; margin: 0 auto; transition: background-color 0.3s; }
+        .cell { width: 6vmin; height: 6.9vmin; background-color: #ffc107; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); display: flex; justify-content: center; align-items: center; font-size: 2.8vmin; font-weight: bold; margin: 0 auto; transition: background-color 0.3s; }
         .cell.covered-player1 { background-color: #e53935; color: #fff; }
         .cell.covered-player2 { background-color: #0077b6; color: #fff; }
-        .track-space { border-radius: 50%; display: flex; text-align:center; justify-content: center; align-items: center; position: relative; font-weight: bold; font-size: 1.8vmin; color: #333; padding: 4px; box-sizing: border-box; line-height: 1.1; }
+        .track-space { border-radius: 50%; display: flex; text-align:center; justify-content: center; align-items: center; position: relative; font-weight: bold; font-size: 2vmin; color: #333; padding: 4px; box-sizing: border-box; line-height: 1.1; }
         .flower { background-color: #f8b3c9; border: 3px dashed #e91e63; }
         .special-space { background-color: #87CEEB; border: 3px solid #4682B4; }
         .player-pawn { position: absolute; width: 6vmin; transition: all 0.5s ease-in-out; z-index: 10; }
@@ -79,7 +80,7 @@
         .firework.blue::before { background: radial-gradient(circle, #448aff, transparent); box-shadow: 0 0 15px #448aff; }
         .firework::before { content: ''; position: absolute; left: -150px; top: -150px; width: 300px; height: 300px; opacity: 0; border-radius: 50%; animation: explode 1.5s ease-out forwards; }
         
-        /* AANPASSING: Animatie voor winnende cellen */
+        /* Animaties */
         .winning-cell-player1 { animation: flash-red 0.5s 4; }
         .winning-cell-player2 { animation: flash-blue 0.5s 4; }
         
@@ -96,6 +97,13 @@
         @keyframes flash-blue {
             0%, 100% { background-color: #0077b6; color: white; transform: scale(1.05); }
             50% { background-color: #82b1ff; transform: scale(1); }
+        }
+
+        @media (max-width: 1024px) {
+            #game-board-container { margin-left: 0; justify-content: center; padding: 50px 10px 0 10px;  }
+            #game-board { max-width: 95vw; height: auto; --board-gap: 1vmin; }
+            .track-space { font-size: 1.8vmin; }
+            .player-area h2 { font-size: 1.5em; }
         }
     </style>
 </head>
@@ -138,7 +146,7 @@
             <div class="game-actions">
                 <button id="btn-opnieuw" class="btn-actie btn-opnieuw">Opnieuw</button>
                 <button id="btn-terug" class="btn-actie btn-terug">
-                    <img src="tafels_afbeeldingen/pijl.png" alt="Pijl" class="terug-pijl"> Menu
+                    <img src="tafels_afbeeldingen/pijl.png" alt="Pijl" class="terug-pijl"> Terug
                 </button>
             </div>
             <div id="game-board"></div>
@@ -149,8 +157,8 @@
             <div class="win-content">
                 <img id="win-image" src="" alt="Winnaar!">
                 <div class="win-buttons">
-                    <button id="win-play-again" class="btn-actie btn-opnieuw">Opnieuw Spelen</button>
-                    <button id="win-back-to-menu" class="btn-actie btn-terug">Terug naar Menu</button>
+                    <button id="win-play-again" class="btn-actie btn-opnieuw">Opnieuw spelen</button>
+                    <button id="win-back-to-menu" class="btn-actie btn-terug">Terug naar keuze</button>
                 </div>
             </div>
         </div>
@@ -194,8 +202,8 @@
         let targetNumber = null, currentPlayer = 1, requiredAnswer = null, gameActive = false;
         let playerCount = null;
         let playerPositions = { 1: 0, 2: 0 };
-        const pathOrder = [ 66, 55, 44, 33, 22, 11, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 21, 32, 43, 54, 65, 76, 75, 74, 73, 72, 71, 70, 69, 68, 67 ];
-        const specialSpaces = { 7: { type: 'forward', value: 4, text: 'Energie! 4 vooruit'}, 15: { type: 'back', value: 4, text: 'Oeps! 4 terug'}, 24: { type: 'again', text: 'Nog eens draaien!'} };
+        const pathOrder = [ 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 49, 39, 29, 19, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0, 10, 20, 30, 40 ];
+        const specialSpaces = { 7: { type: 'forward', value: 3, text: 'Energie! 3 vooruit'}, 14: { type: 'back', value: 3, text: 'Oeps! 3 terug'}, 21: { type: 'again', text: 'Nog eens draaien!'} };
 
         function checkCanStart() {
             if (playerCount && targetNumber) {
@@ -324,7 +332,7 @@
         }
 
         function renderTrack(trackData) {
-            const numCols = 11;
+            const numCols = 10;
             const getGridArea = (index) => `${Math.floor(index / numCols) + 1} / ${(index % numCols) + 1}`;
             trackData.forEach(data => {
                 const space = document.createElement('div');
@@ -589,14 +597,15 @@
         }
         
         function generateGridNumbers(availableAnswers, count) {
-            const uniqueAnswers = Array.from(new Set(availableAnswers));
-            if (uniqueAnswers.length === 0) {
-                for(let i = 0; i < count; i++) { uniqueAnswers.push(i % (targetNumber + 1)); }
+            if (availableAnswers.length === 0) {
+                const emergencyAnswers = [];
+                for(let i = 0; i < count; i++) { emergencyAnswers.push(i % (targetNumber + 1)); }
+                return emergencyAnswers;
             }
             const bingoNumbers = [];
             for (let i = 0; i < count; i++) {
-                const randomIndex = Math.floor(Math.random() * uniqueAnswers.length);
-                bingoNumbers.push(uniqueAnswers[randomIndex]);
+                const randomIndex = Math.floor(Math.random() * availableAnswers.length);
+                bingoNumbers.push(availableAnswers[randomIndex]);
             }
             return bingoNumbers;
         }
