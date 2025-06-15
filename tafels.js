@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', function () {
   let geselecteerdeSoort = null;
   let geselecteerdeTafels = [];
   let tijdOver = 120;
-  let score = 0;
   let scoreJuist = 0;
   let scoreFout = 0;
   let timerInterval;
@@ -37,16 +36,13 @@ function isKleinScherm() {
     if (soort === 'maal') {
       vraag = `${getal1} × ${getal2}`;
       correct = getal1 * getal2;
-    } else { // Delen, maar niet delen door 0
-      if (getal1 === 0) return genereerOefening(); // Genereer een nieuwe vraag als de tafel 0 is
+    } else { 
+      if (getal1 === 0) return genereerOefening();
       vraag = `${getal1 * getal2} ÷ ${getal1}`;
       correct = getal2;
     }
     return { vraag, correct };
   }
-
-
-// Oude functie verwijderd:
 
   function toonBellen(correct) {
     bellenContainer.innerHTML = '';
@@ -58,7 +54,7 @@ function isKleinScherm() {
     }
 
     let maxBellen = isKleinScherm() ? 4 : 5;
-  while (antwoorden.length < maxBellen) {
+    while (antwoorden.length < maxBellen) {
       const fout = correct + Math.floor(Math.random() * 20) - 10;
       if (!antwoorden.includes(fout) && fout >= 0) {
         antwoorden.push(fout);
@@ -66,53 +62,63 @@ function isKleinScherm() {
     }
 
     antwoorden.sort(() => 0.5 - Math.random());
-let vastePosities;
-if (maxBellen === 4) {
-  vastePosities = [40, 240, 450, 660];
-} else {
-  vastePosities = [-90, 110, 320, 540, 740];
-}
+    let vastePosities;
+    if (maxBellen === 4) {
+      vastePosities = [40, 240, 450, 660];
+    } else {
+      vastePosities = [-90, 110, 320, 540, 740];
+    }
 
     antwoorden.forEach((antwoord, index) => {
       const bel = document.createElement('div');
       bel.className = 'bel';
-      bel.textContent = antwoord;
+      
+      bel.innerHTML = `
+        <img src="tafels_afbeeldingen/zeepbel.png" alt="zeepbel">
+        <span class="getal">${antwoord}</span>
+        <span class="spetter" style="--x: ${Math.random() * 2 - 1}; --y: ${Math.random() * 2 - 1};"></span>
+        <span class="spetter" style="--x: ${Math.random() * 2 - 1}; --y: ${Math.random() * 2 - 1};"></span>
+        <span class="spetter" style="--x: ${Math.random() * 2 - 1}; --y: ${Math.random() * 2 - 1};"></span>
+        <span class="spetter" style="--x: ${Math.random() * 2 - 1}; --y: ${Math.random() * 2 - 1};"></span>
+      `;
+      
       bel.style.left = `${vastePosities[index % vastePosities.length]}px`;
-      bel.style.willChange = "transform, opacity";
-      bel.style.backfaceVisibility = "hidden";
+      bellenContainer.appendChild(bel);
+
+      // AANGEPAST: Animatie pas toevoegen nadat element in de DOM staat
+      setTimeout(() => {
+          if(document.body.contains(bel)) { // Voorkom error als de bel al weg is
+            bel.style.animation = `zweef 10s linear forwards`;
+          }
+      }, 10);
+
 
       const clickHandler = function () {
         if (isBeantwoord) return;
         isBeantwoord = true;
         if (herhaalTimeoutId) clearTimeout(herhaalTimeoutId);
-        bel.removeEventListener('click', clickHandler);
-
+        
         const isCorrect = Number(antwoord) === Number(correct);
 
         if (isCorrect) {
-          // --- GOED ANTWOORD: SNELLE REACTIE ---
           scoreJuist++;
           document.getElementById("scoreJuist").textContent = scoreJuist;
           bel.classList.add('correct');
           
           setTimeout(() => {
             nieuweVraag();
-          }, 400);
+          }, 600); 
 
         } else {
-          // --- FOUT ANTWOORD: LANGERE PAUZE ---
           scoreFout++;
           document.getElementById("scoreFout").textContent = scoreFout;
-          bel.classList.add('fout'); // Maak de bel rood
+          bel.classList.add('fout');
 
-          // Wacht 1.5 seconde zodat de speler de rode bel goed kan zien
           setTimeout(() => {
-            // Start de "pop"-animatie
             bel.style.transition = "transform 0.3s ease, opacity 0.3s ease";
             bel.style.transform = "scale(0)";
             bel.style.opacity = "0";
             
-            // Wacht tot de animatie klaar is en genereer dan pas een nieuwe vraag
             setTimeout(() => {
                 nieuweVraag();
             }, 300);
@@ -121,7 +127,6 @@ if (maxBellen === 4) {
       };
 
       bel.addEventListener('click', clickHandler);
-      bellenContainer.appendChild(bel);
     });
 
     herhaalTimeoutId = setTimeout(() => {
