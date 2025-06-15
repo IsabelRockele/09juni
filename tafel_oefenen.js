@@ -9,21 +9,22 @@ document.addEventListener("DOMContentLoaded", function () {
   const tafelKnoppen = document.querySelectorAll(".tafel");
   const levelKnoppen = document.querySelectorAll(".level");
   const startKnop = document.getElementById("startOefening");
-  const terugKnop = document.getElementById("btn-terug"); // Nieuw
+  const terugKnop = document.getElementById("btn-terug");
 
   const meldingType = document.getElementById("meldingType");
   const meldingTafels = document.getElementById("meldingTafels");
   const meldingLevel = document.getElementById("meldingLevel");
   
-  // AANGEPAST: Slimme terugknop-logica
-  // We bepalen de terug-URL op basis van de vorige pagina.
-  const referrer = document.referrer;
+  // AANGEPAST: Slimme terugknop-logica die niet hoofdlettergevoelig is
+  const referrer = document.referrer.toLowerCase(); // Alles naar kleine letters
   let terugUrl = 'start_leerjaar3.html'; // Standaard terug-pagina
 
-  if (referrer.includes('tafel_overzicht.html')) {
+  // Controleer op de namen in kleine letters
+  if (referrer.includes('tafel3_overzicht.html')) {
+    terugUrl = 'Tafel3_overzicht.html';
+  } else if (referrer.includes('tafel_overzicht.html')) {
+    // Extra controle voor de andere mogelijke naam
     terugUrl = 'tafel_overzicht.html';
-  } else if (referrer.includes('start_leerjaar3.html')) {
-    terugUrl = 'start_leerjaar3.html';
   }
   
   terugKnop.addEventListener('click', () => {
