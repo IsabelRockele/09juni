@@ -187,5 +187,21 @@
 <script src="force-start.js"></script>
 </div>
 </div>
+<script>
+  // Wacht tot de volledige pagina is geladen
+  document.addEventListener('DOMContentLoaded', function() {
+    
+    // Zoek de knop met het id 'btn-terug'
+    const terugKnop = document.getElementById('btn-terug');
+    
+    // Voeg een 'click' event listener toe aan de knop
+    if (terugKnop) {
+      terugKnop.addEventListener('click', function() {
+        // Stuur de gebruiker één pagina terug in de browsergeschiedenis
+        window.history.back();
+      });
+    }
+  });
+</script>
 </body>
 </html>
