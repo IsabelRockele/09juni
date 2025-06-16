@@ -171,7 +171,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 1.4em;
+  font-size: 1.8em;
   background-color: transparent;
   padding: 10px;
   border-radius: 10px;
@@ -179,7 +179,7 @@ body {
 }
 
 .score-kolom img {
-  width: 50px;
+  width: 70px;
   height: auto;
   margin-bottom: 5px;
 }
