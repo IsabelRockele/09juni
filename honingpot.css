@@ -52,7 +52,7 @@ button.keuze:hover, button.keuze.active { background-color: #0077b6; color: whit
 
 #scorebord { display: flex; gap: 20px; background-color: rgba(255, 255, 255, 0.7); padding: 10px; border-radius: 10px; }
 .score-kolom { display: flex; align-items: center; gap: 8px; font-size: 1.5em; font-weight: bold; }
-.score-kolom img { width: 40px; height: auto; }
+.score-kolom img { width: 50px; height: auto; }
 #scoreJuist { color: #2e7d32; }
 #scoreFout { color: #c62828; }
 
