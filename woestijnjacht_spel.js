@@ -185,11 +185,11 @@ document.addEventListener('DOMContentLoaded', () => { // FOUT GECORRIGEERD
             feedbackImgSrc = 'leerjaar3_afbeeldingen/trofee.png'; // Een speciale afbeelding voor succes
         } else if (scoreFout === 0 && scoreJuist < 25) {
             feedbackBericht = `Bijna! Je had ${scoreJuist} juiste antwoorden zonder fouten, maar je kunt er nog meer binnen de tijd. Probeer het opnieuw!`;
-            feedbackImgSrc = 'tafels_afbeeldingen/neutraal.png';
+            feedbackImgSrc = 'leerjaar3_afbeeldingen/karl_normaal.png';
         }
         else if (scoreFout > 0 && scoreJuist >= 25) {
             feedbackBericht = `Knap gedaan! Je hebt ${scoreJuist} oefeningen gemaakt, maar probeer de volgende keer geen fouten te maken! Concentreer je extra goed.`;
-            feedbackImgSrc = 'tafels_afbeeldingen/neutraal.png';
+            feedbackImgSrc = 'leerjaar3_afbeeldingen/karl_normaal.png';
         }
         else {
             feedbackBericht = `Blijven oefenen, woestijnrover! Je had ${scoreJuist} juiste antwoorden en ${scoreFout} foute. De woestijn is pittig, maar jij kan het! Probeer het nog een keer!`;
