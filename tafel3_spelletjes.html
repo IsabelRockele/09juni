@@ -13,7 +13,7 @@
       text-align: center;
     }
     .container {
-      max-width: 900px;
+      max-width: 1200px;
       margin: auto;
       padding: 40px 20px;
     }
@@ -23,29 +23,31 @@
       margin-bottom: 40px;
     }
     .opties {
-      display: flex;
-      justify-content: center;
-      gap: 60px;
-      flex-wrap: wrap;
-      margin-top: 80px;
-    }
-    .optie {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px 40px; /* verticale en horizontale afstand */
+  margin-top: 40px;
+}
+
+.optie {
+  width: 45%; /* zorgt voor 2 per rij met ruimte tussen */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
     .optie img {
-      width: 240px;
-      height: 240px;
+      width: 200px;
+      height: 200px;
       object-fit: contain;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
       background-color: transparent;
       border-radius: 12px;
     }
     .optie button {
       background-color: #ffcc00;
       border: none;
-      padding: 24px 30px;
+      padding: 15px 30px;
       font-size: 1.5em;
       font-weight: bold;
       border-radius: 10px;
@@ -60,7 +62,7 @@
     /* Uniforme Terug-knop */
     .btn-actie {
       padding: 16px 32px;
-      font-size: 1.6em;
+      font-size: 1.5em;
       border: none;
       border-radius: 12px;
       cursor: pointer;
@@ -128,6 +130,10 @@ footer.copyright {
         <img src="leerjaar3_afbeeldingen/karl_tornado.png" alt="Tornado">
         <button onclick="location.href='tornado_keuze.html'">Tornado</button>
       </div>
+      <div class="optie">
+  <img src="leerjaar3_afbeeldingen/sombrero_spel.png" alt="Sombrero">
+  <button onclick="location.href='sombrero_keuze.html'">Sombrero</button>
+</div>
     </div>
   </div>
 </main>
