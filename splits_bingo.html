@@ -322,7 +322,7 @@
                     const total = Math.floor(Math.random() * (targetNumber - 1)) + 2; 
                     const given = Math.floor(Math.random() * (total + 1)); 
                     const answer = total - given;
-                    spaceData = {...spaceData, type: 'flower', question: `? + ${given} = ${total}`, answer: answer };
+                    spaceData = {...spaceData, type: 'flower', question: `${given} + ? = ${total}`, answer: answer };
                     availableAnswers.push(answer);
                 }
                 trackData.push(spaceData);
