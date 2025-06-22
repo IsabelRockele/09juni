@@ -102,6 +102,68 @@ footer.copyright {
   margin-top: 40px;
 }
 
+/* NIEUWE STIJLEN VOOR DE MELDEBOX */
+.melding-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparante zwarte achtergrond */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000; /* Zorg dat het boven alles staat */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.melding-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.melding-box {
+    background-color: #fff;
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 400px;
+    transform: translateY(-20px); /* Begin iets hoger */
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.melding-overlay.show .melding-box {
+    transform: translateY(0); /* Glijdt naar beneden */
+    opacity: 1;
+}
+
+.melding-box p {
+    font-size: 1.6em;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.melding-box button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.melding-box button:hover {
+    background-color: #45a049;
+}
+
+
 </style>
 </head>
 <body class="layout">
@@ -123,18 +185,36 @@ footer.copyright {
         <img src="leerjaar1_afbeeldingen/bibi_honingpot.png" alt="Bingo Bibi">
         <button onclick="location.href='honingpot_vullen_keuze.html'">Honingpot vullen</button>
       </div>
-      <!-- Toegevoegde optie voor 4 op een rij -->
       <div class="optie">
         <img src="leerjaar1_afbeeldingen/bijenrace.png" alt="Bijenrace">
-        <button onclick="location.href='bijenrace_keuze.html'">De bijenrace</button>
+        <button onclick="toonBijenraceMelding()">De bijenrace</button>
       </div>
     </div>
   </div>
+
+  <div id="bijenrace-melding-overlay" class="melding-overlay">
+      <div class="melding-box">
+          <p>Even geduld. Hier wordt nog aan gewerkt.</p>
+          <button onclick="verbergBijenraceMelding()">Oké</button>
+      </div>
+  </div>
+
 </main>
 <footer class="copyright">
   © Isabel Rockelé, 2025. Alle rechten voorbehouden.
 </footer>
 
 <script src="force-start.js"></script>
+<script>
+    function toonBijenraceMelding() {
+        const overlay = document.getElementById('bijenrace-melding-overlay');
+        overlay.classList.add('show');
+    }
+
+    function verbergBijenraceMelding() {
+        const overlay = document.getElementById('bijenrace-melding-overlay');
+        overlay.classList.remove('show');
+    }
+</script>
 </body>
 </html>
