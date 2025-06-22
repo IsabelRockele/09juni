@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => { // FOUT GECORRIGEERD
     const feedbackImage = document.getElementById('feedbackImage');
     const feedbackText = document.getElementById('feedbackText');
     const feedbackOpnieuwKnop = document.getElementById('feedbackOpnieuwKnop');
-    const feedbackTerugKnop = document.getElementById('feedbackTerugKnop');
+    const feedbackTerugKnop = document = document.getElementById('feedbackTerugKnop');
 
     let geselecteerdeTafels = [];
     let geselecteerdeSoort = '';
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => { // FOUT GECORRIGEERD
             }
             getal1 = tafelsVoorDelen[Math.floor(Math.random() * tafelsVoorDelen.length)];
             getal2 = Math.floor(Math.random() * 11);
-            vraag = `${getal1 * getal2} ÷ ${getal1}`;
+            vraag = `${getalaantal * getal2} ÷ ${getal1}`;
             correct = getal2;
         }
         return { vraag, correct };
@@ -116,7 +116,10 @@ document.addEventListener('DOMContentLoaded', () => { // FOUT GECORRIGEERD
             const pos = positions[index % positions.length]; // Use modulo for safety if more answers than positions
             cactusDiv.style.top = pos.top;
             cactusDiv.style.left = pos.left;
-            cactusDiv.style.transform = `translate(-50%, -50%) rotate(${Math.random() * 20 - 10}deg)`; // Small random initial rotation
+            // AANGEPAST: Initial rotation opslaan als CSS variabele
+            const initialRotate = Math.random() * 20 - 10;
+            cactusDiv.style.transform = `translate(-50%, -50%) rotate(${initialRotate}deg)`;
+            cactusDiv.style.setProperty('--initial-rotate', `${initialRotate}deg`); 
 
             cactusDiv.addEventListener('click', () => {
                 if (isBeantwoord) return; // Voorkom meerdere antwoorden per vraag
@@ -132,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => { // FOUT GECORRIGEERD
                     scoreFoutDisplay.textContent = scoreFout;
                     cactusDiv.classList.add('fout');
                     setTimeout(() => {
-                        cactusDiv.classList.remove('fout'); // Reset after animation
+                        // cactusDiv.classList.remove('fout'); // DEZE REGEL IS VERWIJDERD
                         nieuweVraag();
                     }, 1000); // Langer voor foute feedback
                 }
