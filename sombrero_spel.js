@@ -103,8 +103,27 @@ document.addEventListener('DOMContentLoaded', () => {
             const w = canvas.width;
             const h = canvas.height;
             const cx = w / 2;
-            const cy = h / 2 + 16.5;
-            const radius = Math.min(w, h) / 2 - 20;
+            const cy = h / 2 + 16.5; // Pas deze aan voor verticale centrering indien nodig
+
+            let radiusSubtraction;
+            // Pas de aftrekwaarde aan op basis van de breedte van de canvas (die overeenkomt met de containergrootte)
+            if (w >= 0) { // Voor desktop/grote schermen (container >= 160px)
+                radiusSubtraction = 25; // Kleinere aftrek om de cirkel groter te maken t.o.v. de container
+            } else if (w >= 120) { // Voor grotere tablets (container >= 120px)
+                radiusSubtraction = 35; // Dit was de "ideale" waarde die je eerder noemde
+            } else if (w >= 100) { // Voor kleinere tablets/telefoons (container >= 100px)
+                radiusSubtraction = 30; // Een beetje minder aftrekken dan bij 120px om relatief even groot te lijken
+            } else { // Voor zeer kleine schermen (container < 100px, bijv. 80px of 60px)
+                radiusSubtraction = 20; // Zorg dat de radius positief blijft voor kleine containers
+            }
+
+            let radius = Math.min(w, h) / 2 - radiusSubtraction;
+
+            // Veiligheidscheck: zorg ervoor dat de radius nooit negatief is of te klein wordt
+            if (radius < 5) { // Minimaal 5px radius om tekenfouten te voorkomen
+                console.warn("Berekende radius is te klein of negatief (" + radius + "). Aangepast naar 5.");
+                radius = 5;
+            }
 
             ctx.clearRect(0, 0, w, h);
 
