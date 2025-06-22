@@ -1,4 +1,3 @@
-// honingpot.js
 document.addEventListener('DOMContentLoaded', () => {
     // --- DOM Elementen ---
     const selectionScreen = document.getElementById('selection-screen');
@@ -10,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const player = document.getElementById('player');
     const speechBubble = document.getElementById('speech-bubble');
     const scoreJuistEl = document.getElementById('scoreJuist');
-    const scoreFoutEl = document.getElementById('scoreFout'); // Corrected typo here
+    const scoreFoutEl = document.getElementById('scoreFout');
     const splitsingContainer = document.getElementById('splitsing-container');
     const btnOpnieuw = document.getElementById('btn-opnieuw');
     const btnTerug = document.getElementById('btn-terug');
@@ -92,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
         oefeningTeller = 0;
         updateScore();
         
+        resetPlayerPosition(); // Zet speler terug naar midden bij start van het spel
         gameActive = true;
         startNewWave(); 
         requestAnimationFrame(gameLoop);
@@ -140,6 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.querySelectorAll('.falling-object').forEach(obj => obj.remove()); 
         clearTimeout(waveTimeoutId); 
+        resetPlayerPosition(); // Zet speler terug naar midden bij start van een nieuwe golf/oefening
         waveTimeoutId = setTimeout(createPotWave, 2000);
     }
 
@@ -187,6 +188,12 @@ document.addEventListener('DOMContentLoaded', () => {
                  object.style.animation = `fall ${fallDuration}s linear forwards`;
             }
         }, 10);
+    }
+
+    // Functie om de spelerpositie te resetten naar het midden
+    function resetPlayerPosition() {
+        playerContainer.style.left = '50%';
+        playerContainer.style.transform = 'translateX(-50%)';
     }
 
     // --- Besturing ---
