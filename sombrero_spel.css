@@ -100,7 +100,7 @@ header h1 {
 /* Klok en Scorebord (from tafels.css) */
 #klokzone {
     position: relative;
-    width: 180px;
+    width: 160px; /* Blijft 160px voor desktop */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -121,8 +121,8 @@ header h1 {
 #visueleTimerContainer {
     margin-top: 10px;
     position: relative;
-    width: 160px;
-    height: 160px;
+    width: 160px; /* Blijft 160px voor desktop */
+    height: 160px; /* Blijft 160px voor desktop */
     margin-top: 6px;
     z-index: 1;
 }
@@ -205,9 +205,8 @@ header h1 {
 
 .hoed {
     position: absolute;
-    /* Removed !important here for desktop size */
-    width: 200px;
-    height: 130px;
+    width: 200px; /* Basisgrootte voor desktop */
+    height: 130px; /* Basisgrootte voor desktop */
     background-image: url('leerjaar3_afbeeldingen/sombrero_hoed.png');
     background-size: contain;
     background-repeat: no-repeat;
@@ -215,8 +214,7 @@ header h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* Removed !important here for desktop size */
-    font-size: 1.8em;
+    font-size: 1.8em; /* Basis lettergrootte voor desktop */
     color: #fff;
     font-weight: bold;
     cursor: grab;
@@ -249,8 +247,8 @@ header h1 {
 
 .cactus {
     position: relative;
-    width: 180px;
-    height: 200px;
+    width: 180px; /* Basisgrootte voor desktop */
+    height: 200px; /* Basisgrootte voor desktop */
     background-image: url('leerjaar3_afbeeldingen/cactus_woestijn.png');
     background-size: contain;
     background-repeat: no-repeat;
@@ -263,7 +261,7 @@ header h1 {
 
 .cactus-antwoord-vak {
     position: absolute;
-    top: 80px;
+    top: 80px; /* Basispositie voor desktop */
     width: 45px;
     height: 40px;
     background-color: white;
@@ -272,7 +270,7 @@ header h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.4em;
+    font-size: 1.4em; /* Basis lettergrootte voor desktop */
     color: #003049;
     font-weight: bold;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -322,6 +320,60 @@ header h1 {
 }
 
 /* Media Queries for Responsiveness */
+
+/* Nieuwe Media Query voor grotere tablets zoals Galaxy Tab S4 (landschap) en andere schermen tussen 1025px en 1600px */
+@media (max-width: 1600px) {
+    .spel-gebied {
+        min-height: 600px; /* Verhoog deze indien nodig om scrollen te verminderen */
+        justify-content: space-around; /* Helpt bij verticale verdeling */
+        padding-bottom: 20px;
+    }
+
+    #hoedenContainer {
+        margin-top: 30px;
+        gap: 15px 30px;
+    }
+
+    .hoed {
+        width: 180px; /* Iets kleiner dan desktop */
+        height: 115px;
+        font-size: 1.6em;
+    }
+
+    #cactussenContainer {
+        position: relative; /* Belangrijk: zet naar relatief om margin-top te gebruiken */
+        bottom: auto;
+        left: auto;
+        margin-top: 30px; /* PAS DEZE AAN OM DE CACTUSSEN OMHOOG TE BRENGEN (lagere waarde = hoger) */
+        padding-bottom: 10px; /* Extra padding onderaan als nodig */
+    }
+
+    .cactus {
+        width: 160px; /* Iets kleiner dan desktop */
+        height: 180px;
+    }
+
+    .cactus-antwoord-vak {
+        top: 70px; /* Pas deze aan om het antwoordvak te centreren op de cactus */
+        font-size: 1.3em;
+    }
+
+    #klok-en-scorezone {
+        margin-top: 15px;
+        padding: 10px;
+    }
+    #klokzone {
+        width: 140px;
+    }
+    #timer {
+        font-size: 1.6em;
+    }
+    #visueleTimerContainer {
+        width: 120px; /* Aangepast voor dit bereik */
+        height: 120px;
+    }
+}
+
 
 /* Tablets (e.g., iPad, iPad Air) and larger phones */
 /* Note: iPad Mini often falls into this range. Adjustments here are key. */
@@ -378,23 +430,25 @@ header h1 {
     }
 
     #klokzone {
-        width: 100%; /* Take full width of parent */
-        flex-direction: row; /* Timer text and visual timer side-by-side */
-        justify-content: flex-start; /* Align to left */
-        align-items: center;
+        width: 100%;
+        flex-direction: column; /* <-- VERANDERD NAAR COLUMN */
+        justify-content: center; /* <-- Zorgt voor horizontale centrering */
+        align-items: center;    /* <-- Zorgt voor verticale centrering */
         margin: 0;
     }
     #timer {
-        font-size: 1.3em; /* Slightly smaller font */
-        background-size: 20px 20px; /* Smaller icon */
-        padding-left: 25px; /* Adjust padding for icon */
-        text-align: left; /* Align text to left */
+        font-size: 1.3em;
+        background-size: 20px 20px;
+        padding-left: 0; /* <-- Haal deze padding weg als je de icon niet meer gebruikt*/
+        background: none; /* <-- Optioneel: verberg de achtergrond stopwatch hier als de visuele timer de hoofdrol speelt */
+        text-align: center; /* <-- Centreer de tekst */
     }
     #visueleTimerContainer {
-        width: 80px; /* Smaller container for visual timer */
-        height: 80px;
-        margin-top: 0;
-        margin-left: auto; /* Push to right of #klokzone */
+        width: 100px; /* Aangepast voor dit bereik */
+        height: 100px; /* Zorg dat deze gelijk zijn voor een cirkel */
+        margin-top: 5px; /* Voeg wat ruimte toe onder de digitale timer */
+        margin-left: auto; /* <-- Haal deze weg als je wilt centreren */
+        margin-right: auto; /* <-- Voeg deze toe om te centreren */
     }
     /* Klok-afbeelding en timer-canvas blijven 100% van hun parent */
 
@@ -429,9 +483,9 @@ header h1 {
     
     .hoed {
         /* Added !important to ensure these values apply over generic .hoed rules */
-        width: 160px !important;
-        height: 105px !important;
-        font-size: 1.7em !important;
+        width: 160px; /* Aangepast voor dit bereik */
+        height: 105px;
+        font-size: 1.3em; /* VERKLEIN DIT LETTERTYPE voor iPad Mini (landschap) */
     }
 
     #cactussenContainer {
@@ -444,7 +498,7 @@ header h1 {
         gap: 20px; /* Increased gap for cactuses */
         padding: 10px;
         min-height: 200px; /* Increased height for cactuses */
-        margin-top: 25px; /* More margin from hoeden */
+        margin-top: 40px; /* PAS DEZE AAN OM DE CACTUSSEN OMHOOG TE BRENGEN (lagere waarde = hoger) */
         width: 100%;
     }
 
@@ -453,14 +507,14 @@ header h1 {
         height: 160px; /* Proportional height */
     }
     .cactus-antwoord-vak {
-        top: 35px; /* Adjust top position for larger cactus */
-        width: 60px; /* Larger answer box */
+        top: 65px; /* Adjust top position for larger cactus */
+        width: 45px; /* Larger answer box */
         height: 30px;
         font-size: 1.2em; /* Larger font */
     }
 
     .hoed-vraag {
-        font-size: 1.4em;
+        font-size: 1.1em;
     }
 
     #feedbackContainer {
@@ -515,7 +569,7 @@ header h1 {
     }
 
     #klokzone {
-        flex-direction: column; /* Stack timer elements vertically */
+        flex-direction: column; /* <-- VERANDERD NAAR COLUMN */
         justify-content: center;
         align-items: center;
     }
@@ -525,8 +579,8 @@ header h1 {
         background: none; /* Hide stopwatch icon on very small screens */
     }
     #visueleTimerContainer {
-        width: 60px;
-        height: 60px;
+        width: 80px; /* Aangepast voor dit bereik */
+        height: 80px; /* Zorg dat deze gelijk zijn */
     }
     #klok-afbeelding {
         display: none; /* Ensure stopwatch image is hidden */
@@ -560,9 +614,9 @@ header h1 {
 
     .hoed {
         /* Added !important to ensure these values apply over generic .hoed rules */
-        width: 120px !important;
-        height: 80px !important;
-        font-size: 1.4em !important;
+        width: 120px; /* Aangepast voor dit bereik */
+        height: 80px;
+        font-size: 1.0em;
     }
 
     #cactussenContainer {
@@ -570,6 +624,7 @@ header h1 {
         gap: 10px; /* Increased gap */
         padding: 5px;
         min-height: 140px; /* Increased min-height */
+        margin-top: 20px; /* PAS DEZE AAN OM DE CACTUSSEN OMHOOG TE BRENGEN (lagere waarde = hoger) */
     }
 
     .cactus {
@@ -577,8 +632,8 @@ header h1 {
         height: 120px;
     }
     .cactus-antwoord-vak {
-        top: 25px; /* Adjust top position for smaller cactus */
-        width: 45px;
+        top: 35px; /* Adjust top position for smaller cactus */
+        width: 40px;
         height: 22px;
         font-size: 0.9em;
     }
