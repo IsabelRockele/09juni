@@ -15,9 +15,26 @@ document.addEventListener("DOMContentLoaded", function () {
   const meldingTafels = document.getElementById("meldingTafels");
   const meldingLevel = document.getElementById("meldingLevel");
   
-  // AANGEPAST: De terugknop verwijst nu altijd naar tafels_overzicht.html
+  // AANGEPAST: De terugknop reageert nu slim op de vorige pagina
   terugKnop.addEventListener('click', () => {
-    window.location.href = 'tafel_overzicht.html'; // Hardcoded naar de gewenste pagina
+    const referrer = document.referrer;
+    // Standaard terugval naar tafel_overzicht.html
+    let terugUrl = 'tafel_overzicht.html';
+
+    // Controleer de referrer en stel de juiste terugUrl in
+    if (referrer.includes('tafel_overzicht.html')) {
+      terugUrl = 'tafel_overzicht.html'; // Verwijst naar algemeen overzicht
+    } else if (referrer.includes('tafel3_overzicht.html')) {
+      terugUrl = 'tafel3_overzicht.html'; // Verwijst specifiek naar tafel 3 overzicht
+    } 
+    // Voeg hier meer 'else if' statements toe voor andere specifieke overzichtspagina's
+    // Bijvoorbeeld:
+    // else if (referrer.includes('tafel4_overzicht.html')) {
+    //   terugUrl = 'tafel4_overzicht.html';
+    // }
+    // Enzovoort voor elke specifieke tafeloverzichtspagina
+
+    window.location.href = terugUrl; // Navigeer naar de bepaalde URL
   });
   // Einde aanpassing terugknop
 
