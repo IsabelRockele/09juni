@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
             startSpelKnop.textContent = "Start het Spel!";
         } else {
             startSpelKnop.disabled = true;
-            startSpelKnop.textContent = "Kies eerst een splitsing en bewerking";
+            startSpelKnop.textContent = "Kies eerst een bewerking";
         }
     }
 
