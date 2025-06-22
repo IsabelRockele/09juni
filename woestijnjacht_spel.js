@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => { // FOUT GECORRIGEERD
+document.addEventListener('DOMContentLoaded', () => {
     const vraagContainer = document.getElementById('vraagContainer');
     const cactussenContainer = document.getElementById('cactussenContainer');
     const timerDisplay = document.getElementById('timer');
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => { // FOUT GECORRIGEERD
     const feedbackImage = document.getElementById('feedbackImage');
     const feedbackText = document.getElementById('feedbackText');
     const feedbackOpnieuwKnop = document.getElementById('feedbackOpnieuwKnop');
-    const feedbackTerugKnop = document = document.getElementById('feedbackTerugKnop');
+    const feedbackTerugKnop = document.getElementById('feedbackTerugKnop'); // FOUT GECORRIGEERD
 
     let geselecteerdeTafels = [];
     let geselecteerdeSoort = '';
@@ -51,17 +51,17 @@ document.addEventListener('DOMContentLoaded', () => { // FOUT GECORRIGEERD
         if (soort === 'maal') {
             getal1 = geselecteerdeTafels[Math.floor(Math.random() * geselecteerdeTafels.length)];
             getal2 = Math.floor(Math.random() * 11); // Keer tot 10
-            vraag = `${getal1} × ${getal2}`;
+            vraag = `${getal1} × ${getal2}`; // Correcte vraag voor vermenigvuldigen
             correct = getal1 * getal2;
         } else { // delen
             if (tafelsVoorDelen.length === 0) {
                 // Als alleen tafel van 0 is gekozen voor delen, genereer een maal oefening
                 // Dit is een fallback en zal hopelijk zelden voorkomen met goede keuzes
-                return genereerOefeningForcedMaal(); // Nieuwe functie voor deze specifieke fallback
+                return genereerOefeningForcedMaal();
             }
             getal1 = tafelsVoorDelen[Math.floor(Math.random() * tafelsVoorDelen.length)];
             getal2 = Math.floor(Math.random() * 11);
-            vraag = `${getalaantal * getal2} ÷ ${getal1}`;
+            vraag = `${getal1 * getal2} ÷ ${getal1}`; // Correctie: getalaantal was fout, moet getal1 zijn
             correct = getal2;
         }
         return { vraag, correct };
@@ -76,17 +76,25 @@ document.addEventListener('DOMContentLoaded', () => { // FOUT GECORRIGEERD
 
     function genereerAntwoorden(correctAntwoord) {
         let antwoorden = new Set();
-        antwoorden.add(correctAntwoord);
+        antwoorden.add(correctAntwoord); // Zorg ervoor dat het correcte antwoord erin zit
 
-        while (antwoorden.size < 5) { // Altijd 5 cactussen
-            let foutAntwoord = correctAntwoord + Math.floor(Math.random() * 21) - 10; // +/- 10 verschil
-            if (foutAntwoord < 0) foutAntwoord = 0; // Antwoorden niet negatief laten zijn
-            // Voorkom dubbele foute antwoorden of antwoorden gelijk aan het correcte antwoord
+        // Genereer foute antwoorden
+        while (antwoorden.size < 5) { // Er moeten altijd 5 cactussen zijn
+            let foutAntwoord;
+            let offset = Math.floor(Math.random() * 21) - 10; // Getal tussen -10 en +10
+            foutAntwoord = correctAntwoord + offset;
+
+            // Voorkom dat antwoorden negatief worden
+            if (foutAntwoord < 0) {
+                foutAntwoord = Math.floor(Math.random() * 11); // Genereer een nieuw willekeurig getal tussen 0-10
+            }
+
+            // Voorkom dat foute antwoorden gelijk zijn aan het correcte antwoord of al in de set zitten
             if (!antwoorden.has(foutAntwoord)) {
                 antwoorden.add(foutAntwoord);
             }
         }
-        return Array.from(antwoorden).sort(() => 0.5 - Math.random());
+        return Array.from(antwoorden).sort(() => 0.5 - Math.random()); // Schud de antwoorden
     }
 
     function toonCactussen(antwoorden, correctAntwoord) {
@@ -94,10 +102,8 @@ document.addEventListener('DOMContentLoaded', () => { // FOUT GECORRIGEERD
         isBeantwoord = false; // Reset de status voor de nieuwe vraag
 
         // Je kunt deze waarden nog steeds finetunen.
-        // Let op: 'left' percentages moeten mogelijk nog verder naar rechts worden verschoven,
-        // afhankelijk van de exacte breedte van het scorebord en schermgrootte.
         const positions = [
-            { top: '60%', left: '25%' }, // Voorbeeldwaarden, pas aan naar wens
+            { top: '60%', left: '25%' },
             { top: '40%', left: '40%' },
             { top: '70%', left: '55%' },
             { top: '30%', left: '70%' },
@@ -135,7 +141,6 @@ document.addEventListener('DOMContentLoaded', () => { // FOUT GECORRIGEERD
                     scoreFoutDisplay.textContent = scoreFout;
                     cactusDiv.classList.add('fout');
                     setTimeout(() => {
-                        // cactusDiv.classList.remove('fout'); // DEZE REGEL IS VERWIJDERD
                         nieuweVraag();
                     }, 1000); // Langer voor foute feedback
                 }
