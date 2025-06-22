@@ -15,20 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const meldingTafels = document.getElementById("meldingTafels");
   const meldingLevel = document.getElementById("meldingLevel");
   
-  // AANGEPAST: Slimme terugknop-logica die niet hoofdlettergevoelig is
-  const referrer = document.referrer.toLowerCase(); // Alles naar kleine letters
-  let terugUrl = 'start_leerjaar3.html'; // Standaard terug-pagina
-
-  // Controleer op de namen in kleine letters
-  if (referrer.includes('tafel3_overzicht.html')) {
-    terugUrl = 'Tafel3_overzicht.html';
-  } else if (referrer.includes('tafel_overzicht.html')) {
-    // Extra controle voor de andere mogelijke naam
-    terugUrl = 'tafel_overzicht.html';
-  }
-  
+  // AANGEPAST: De terugknop verwijst nu altijd naar tafels_overzicht.html
   terugKnop.addEventListener('click', () => {
-    window.location.href = terugUrl;
+    window.location.href = 'tafel_overzicht.html'; // Hardcoded naar de gewenste pagina
   });
   // Einde aanpassing terugknop
 
