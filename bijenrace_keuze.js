@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
             startSpelKnop.textContent = "Start het Spel!";
         } else {
             startSpelKnop.disabled = true;
-            startSpelKnop.textContent = "Kies eerst je opties";
+            startSpelKnop.textContent = "Kies eerst";
         }
     }
 
