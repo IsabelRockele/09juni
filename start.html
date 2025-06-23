@@ -85,6 +85,10 @@
         if (url.includes("leerjaar5")) localStorage.setItem("leerjaar", "5");
         if (url.includes("leerjaar6")) localStorage.setItem("leerjaar", "6");
 
+        // Markeer sessie als gestart, zodat force-start.js niet redirect
+        sessionStorage.setItem("zisa_session_started", "true");
+
+        // Navigeer naar het gekozen leerjaar
         window.location.href = url;
       }
     });
