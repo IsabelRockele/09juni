@@ -13,7 +13,9 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Reken met Zisa">
-
+   <!-- NIEUWE regel voor bredere compatibiliteit -->
+  <meta name="mobile-web-app-capable" content="yes">
+  
   <link rel="stylesheet" href="start.css">
 </head>
 <body class="layout">
@@ -69,17 +71,25 @@
   }
 
   function activeerKnoppen() {
-    const knoppen = document.querySelectorAll(".leerjaar-knop");
-    knoppen.forEach(knop => {
-      knop.disabled = false;
-      knop.addEventListener("click", () => {
-        const url = knop.getAttribute("data-url");
-        if (url) {
-          window.location.href = url;
-        }
-      });
+  const knoppen = document.querySelectorAll(".leerjaar-knop");
+  knoppen.forEach(knop => {
+    knop.disabled = false;
+    knop.addEventListener("click", () => {
+      const url = knop.getAttribute("data-url");
+      if (url) {
+        // Zet leerjaar in localStorage
+        if (url.includes("leerjaar1")) localStorage.setItem("leerjaar", "1");
+        if (url.includes("leerjaar2")) localStorage.setItem("leerjaar", "2");
+        if (url.includes("leerjaar3")) localStorage.setItem("leerjaar", "3");
+        if (url.includes("leerjaar4")) localStorage.setItem("leerjaar", "4");
+        if (url.includes("leerjaar5")) localStorage.setItem("leerjaar", "5");
+        if (url.includes("leerjaar6")) localStorage.setItem("leerjaar", "6");
+
+        window.location.href = url;
+      }
     });
-  }
+  });
+}
 
   window.addEventListener("load", () => {
     checkOriëntatie();
