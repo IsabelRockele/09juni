@@ -1,3 +1,4 @@
+
 body {
   margin: 0;
   padding: 0;
@@ -22,30 +23,6 @@ h1 {
   margin: 0 auto;
 }
 
-.leerjaar-raster a {
-  display: block;
-  width: 160px;
-  background-color: #ffe5cc;
-  border-radius: 30px;
-  padding: 20px;
-  box-sizing: border-box;
-  transition: transform 0.3s;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
-.leerjaar-raster a:hover,
-.leerjaar-raster a:active {
-  transform: scale(1.05);
-}
-
-.leerjaar-raster img {
-  width: 100%;
-  height: auto;
-  border-radius: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  cursor: pointer;
-}
-
 footer.copyright {
   text-align: center;
   font-size: 0.9em;
@@ -63,4 +40,32 @@ body.layout {
 
 main {
   flex: 1;
+}
+
+.leerjaar-knop {
+  background-color: #ffe5cc;
+  border-radius: 30px;
+  padding: 20px;
+  border: none;
+  width: 160px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.leerjaar-knop:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.leerjaar-knop:hover:not(:disabled),
+.leerjaar-knop:active:not(:disabled) {
+  transform: scale(1.05);
+}
+
+.leerjaar-knop img {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
