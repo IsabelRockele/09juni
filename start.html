@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -5,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kies leerjaar</title>
 
-  <!-- App-iconen -->
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" sizes="180x180" href="start_afbeeldingen/Reken_met_Zisa_1024x1024.png">
   <link rel="icon" type="image/png" sizes="512x512" href="start_afbeeldingen/Reken_met_Zisa_512x512.png">
@@ -21,44 +21,28 @@
   <h1>Kies het juiste leerjaar</h1>
 
   <div class="leerjaar-raster">
-    <a href="start_leerjaar1.html">
+    <button class="leerjaar-knop" data-url="start_leerjaar1.html" disabled>
       <img src="start_afbeeldingen/bibi_leerjaar1.png" alt="Eerste leerjaar">
-    </a>
-    <a href="start_leerjaar2.html">
+    </button>
+    <button class="leerjaar-knop" data-url="start_leerjaar2.html" disabled>
       <img src="start_afbeeldingen/zisa_leerjaar2.png" alt="Tweede leerjaar">
-    </a>
-    <a href="start_leerjaar3.html">
+    </button>
+    <button class="leerjaar-knop" data-url="start_leerjaar3.html" disabled>
       <img src="start_afbeeldingen/karl_leerjaar3.png" alt="Derde leerjaar">
-    </a>
-    <a href="#" onclick="toonNogInWerking(event)">
+    </button>
+    <button class="leerjaar-knop" onclick="toonNogInWerking(event)" disabled>
       <img src="start_afbeeldingen/lana_leerjaar4.png" alt="Vierde leerjaar">
-    </a>
-    <a href="#" onclick="toonNogInWerking(event)">
+    </button>
+    <button class="leerjaar-knop" onclick="toonNogInWerking(event)" disabled>
       <img src="start_afbeeldingen/leon_leerjaar5.png" alt="Vijfde leerjaar">
-    </a>
-    <a href="#" onclick="toonNogInWerking(event)">
+    </button>
+    <button class="leerjaar-knop" onclick="toonNogInWerking(event)" disabled>
       <img src="start_afbeeldingen/dex_leerjaar6.png" alt="Zesde leerjaar">
-    </a>
+    </button>
   </div>
 </main>
 
-<div id="draai-melding" style="
-  visibility: hidden;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: #fff3cd;
-  color: #856404;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 20px;
-">
+<div id="draai-melding" style="visibility: hidden; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: #fff3cd; color: #856404; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px;">
   <div style="font-size: 1.8em; max-width: 90vw;">
     📱 Kantel je iPad naar de zijkant (landscape) om verder te gaan.
   </div>
@@ -73,16 +57,35 @@
   function checkOriëntatie() {
     const melding = document.getElementById("draai-melding");
     if (window.innerHeight > window.innerWidth) {
-  melding.style.visibility = "visible";
-} else {
-  melding.style.visibility = "hidden";
-}
+      melding.style.visibility = "visible";
+    } else {
+      melding.style.visibility = "hidden";
+    }
   }
+
   function toonNogInWerking(event) {
     event.preventDefault();
     alert("Hier wordt nog aan gewerkt.");
   }
-  window.addEventListener("load", checkOriëntatie);
+
+  function activeerKnoppen() {
+    const knoppen = document.querySelectorAll(".leerjaar-knop");
+    knoppen.forEach(knop => {
+      knop.disabled = false;
+      knop.addEventListener("click", () => {
+        const url = knop.getAttribute("data-url");
+        if (url) {
+          window.location.href = url;
+        }
+      });
+    });
+  }
+
+  window.addEventListener("load", () => {
+    checkOriëntatie();
+    setTimeout(activeerKnoppen, 300);
+  });
+
   window.addEventListener("resize", checkOriëntatie);
   window.addEventListener("orientationchange", checkOriëntatie);
 </script>
