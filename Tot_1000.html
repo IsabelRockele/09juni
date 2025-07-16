@@ -45,6 +45,34 @@
         }
         .knop-keuze.plus { background-color: #1e90ff; }
         .knop-keuze.min { background-color: orange; }
+
+        /* --- Stijl voor Terug-knop (overgenomen uit index.html) --- */
+        .btn-actie {
+          padding: 16px 32px;
+          font-size: 1.6em;
+          border: none;
+          border-radius: 12px;
+          cursor: pointer;
+          color: #fff;
+          font-family: inherit;
+          margin: 10px 0;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+          transition: background 0.2s, box-shadow 0.2s;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+        .btn-terug {
+          background-color: #b71c1c;
+          position: fixed;
+          top: 20px;
+          left: 20px;
+          z-index: 1000;
+        }
+        .btn-terug:hover,
+        .btn-terug:focus {
+          background-color: #e53935;
+        }
         
         /* --- Hoofd Applicatie Styling --- */
         #main-app {
@@ -96,6 +124,7 @@
             padding: 20px;
             display: flex;
             flex-direction: column;
+            position: relative; 
         }
         #main h1 {
             text-align: center;
@@ -143,7 +172,8 @@
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Cdefs%3E%3Cpattern id='p' width='18' height='20' patternUnits='userSpaceOnUse'%3E%3Cpath d='M18 0 v20' stroke='%23444' stroke-width='1'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23p)'/%3E%3C/svg%3E");
         }
         .tool.vlak-blauw {
-            width: 120px; height: 120px;
+            width: 100px;
+            height: 100px;
             border: 2px solid #444;
             border-radius: 6px;
             background-color: #3399FF;
@@ -170,52 +200,37 @@
         .header-t { background-color: #C5E0B3; }
         .header-e { background-color: #FFD965; }
 
-        /* --- PLUS Schema Styling (VOLLEDIG HERBOUWD) --- */
+        /* --- PLUS Schema Styling --- */
         #schema-plus .schema-body {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            grid-template-rows: 1fr 1fr 1fr; /* 3 rijen */
+            grid-template-rows: 0.5fr 1.5fr 1fr;
         }
         #schema-plus .schema-vak {
             border-right: 1px solid #ccc;
             border-top: 1px solid #ccc;
             position: relative;
         }
-        #schema-plus .schema-body .schema-vak:nth-child(3n) { border-right: none; } /* Verwijder rechterrand op laatste kolom */
+        #schema-plus .schema-body .schema-vak:nth-child(3n) { border-right: none; }
 
-        /* Rij 1 */
         #schema-plus .plus-r1-h { background-color: #D9E2F3; }
         #schema-plus .plus-r1-t { background-color: #E2EFD9; }
         #schema-plus .plus-r1-e { background-color: #FFF2CC; }
 
-        /* Grote wisselvak voor Tientallen (overspant rij 1 en 2) */
         #schema-plus .plus-t-span {
-            position: absolute;
-            top: 5%;
-            left: 5%;
-            width: 90%;
-            height: 190%; /* 200% min de marges */
-            border: 2px solid #a9a9a9;
-            border-radius: 12px;
-            z-index: 5;
-            pointer-events: auto; /* Zorgt dat de dropzone klikbaar is */
+            position: relative; 
+            top: 5%; left: 5%; width: 90%; height: 390%;
+            border: 4px solid #32CD32; border-radius: 12px;
+            z-index: 5; pointer-events: auto;
         }
-         /* Verberg de originele dropzones die onder de grote T liggen */
-        #schema-plus .plus-r1-t, #schema-plus .plus-r2-t {
-            pointer-events: none;
-        }
+        #schema-plus .plus-r1-t, #schema-plus .plus-r2-t { pointer-events: none; }
+        #schema-plus .plus-r2-t { background-color: white; }
 
-        /* Wisselvak voor Eenheden (in rij 2) */
-        #schema-plus .plus-r2-e {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        #schema-plus .plus-r2-e { display: flex; align-items: center; justify-content: center; }
         #schema-plus .plus-e-inner {
-            width: 90%;
-            height: 85%;
-            border: 2px solid #a9a9a9;
-            border-radius: 12px;
+            position: relative; 
+            width: 90%; height: 85%;
+            border: 4px solid #ffd700; border-radius: 12px;
         }
         
         /* --- MIN Schema Styling --- */
@@ -225,45 +240,19 @@
             grid-template-columns: 1fr 1fr 1fr;
             grid-template-rows: 1fr auto; 
         }
-        #schema-min .min-top-vak {
-            border-right: 1px solid #666;
-            border-top: 1px solid #666;
-            position: relative;
-        }
+        #schema-min .min-top-vak { border-right: 1px solid #666; border-top: 1px solid #666; position: relative; }
         #schema-min .min-top-vak:last-child { border-right: none; }
-        
-        #schema-min .min-bottom-container {
-            border-right: 1px solid #666;
-            border-top: 1px solid #666;
-            padding: 20px 10px;
-            position: relative;
-        }
+        #schema-min .min-bottom-container { border-right: 1px solid #666; border-top: 1px solid #666; padding: 20px 10px; position: relative; }
         #schema-min .min-bottom-container:last-child { border-right: none; }
-
-        #schema-min .min-bottom-box {
-            height: 240px;
-            border-width: 4px;
-            border-style: solid;
-            border-radius: 20px;
-            position: relative;
-            z-index: 1;
-        }
-
+        #schema-min .min-bottom-box { height: 240px; border-width: 4px; border-style: solid; border-radius: 20px; position: relative; z-index: 1; }
         #schema-min .min-bottom-container:nth-child(4) .min-bottom-box { border-color: #B4C6E7; }
         #schema-min .min-bottom-container:nth-child(5) .min-bottom-box { border-color: #C5E0B3; }
         #schema-min .min-bottom-container:nth-child(6) .min-bottom-box { border-color: #FFD965; }
-        
         #schema-min .min-bottom-container:nth-child(4)::after,
         #schema-min .min-bottom-container:nth-child(5)::after {
-            content: '';
-            position: absolute;
-            background-color: white;
-            width: 28px;
-            height: 40px;
-            top: 50%;
-            right: 0px;
-            transform: translate(50%, -50%);
-            z-index: 2;
+            content: ''; position: absolute; background-color: white;
+            width: 28px; height: 40px; top: 50%; right: 0px;
+            transform: translate(50%, -50%); z-index: 2;
         }
 
         .drag-clone { position: absolute; pointer-events: none; z-index: 1000; opacity: 0.8; }
@@ -272,6 +261,11 @@
 <body>
 
     <div id="start-screen">
+         <button class="btn-actie btn-terug" onclick="window.location.href='start_leerjaar3.html'">
+            <img src="tafels_afbeeldingen/pijl.png" alt="pijl" style="height: 24px;" />
+            Terug
+        </button>
+      
         <div id="start-screen-container">
             <h1>Kies hier je schema</h1>
             <div class="keuzescherm">
@@ -342,6 +336,7 @@
         
         const schemaPlus = document.getElementById('schema-plus');
         const schemaMin = document.getElementById('schema-min');
+        const mainContent = document.getElementById('main');
 
         const vuilbakContainer = document.getElementById('vuilbak-container');
         const hCount = document.getElementById('h-count');
@@ -400,14 +395,27 @@
             schemaMin.style.display = operation === 'min' ? 'grid' : 'none';
 
             renderToolbarChoices();
+            updateSchema();
+        }
+        
+        function resetApp() {
+            document.querySelectorAll('.drop-zone').forEach(vak => {
+                vak.innerHTML = '';
+            });
+            trashCounts = { 100: 0, 10: 0, 1: 0 };
+            hCount.textContent = 0;
+            tCount.textContent = 0;
+            eCount.textContent = 0;
+            
+            document.querySelectorAll('.exchange-btn').forEach(btn => btn.remove());
+            
+            updateSchema();
         }
 
         function returnToStart() {
             mainApp.style.display = 'none';
             startScreen.style.display = 'flex';
-            schemaPlus.style.display = 'none';
-            schemaMin.style.display = 'none';
-            btnReset.click();
+            resetApp();
         }
 
         function onDragStart(e) {
@@ -444,102 +452,15 @@
         }
 
         function onDragEnd() {
-            if (dragClone) {
-                dragClone.remove();
-            }
-
-            if (droppedInTrash && dragElement) {
-                dragElement.remove();
-            }
-            else if (dragElement) {
-                dragElement.style.opacity = '1';
-            }
+            if (dragClone) dragClone.remove();
+            if (droppedInTrash && dragElement) dragElement.remove();
+            else if (dragElement) dragElement.style.opacity = '1';
 
             dragElement = null;
             dragClone = null;
             droppedInTrash = false;
         }
         
-        function performExchangeHtoT(hTool, btn) {
-            const isDisc = hTool.classList.contains('schijf');
-            const tBox = document.querySelector('#schema-min .min-bottom-box[data-column="T"]');
-            if (!tBox) return;
-
-            for (let i = 0; i < 10; i++) {
-                const tenTool = document.createElement('div');
-                tenTool.classList.add('tool');
-                tenTool.dataset.value = '10';
-                tenTool.draggable = true;
-                tenTool.style.position = 'absolute';
-
-                if (isDisc) {
-                    tenTool.classList.add('schijf', 'schijf-groen');
-                    tenTool.textContent = '10';
-                    tenTool.style.left = `${5 + (i % 5) * 60}px`;
-                    tenTool.style.top = `${5 + Math.floor(i / 5) * 60}px`;
-                } else {
-                    tenTool.classList.add('staaf-groen');
-                    tenTool.style.left = `5px`;
-                    tenTool.style.top = `${5 + i * 22}px`;
-                }
-                tBox.appendChild(tenTool);
-            }
-            hTool.remove();
-            btn.remove();
-        }
-
-        function performExchangeTtoE(tTool, btn) {
-            const isDisc = tTool.classList.contains('schijf');
-            const eBox = document.querySelector('#schema-min .min-bottom-box[data-column="E"]');
-            if (!eBox) return;
-
-            for (let i = 0; i < 10; i++) {
-                const oneTool = document.createElement('div');
-                oneTool.classList.add('tool');
-                oneTool.dataset.value = '1';
-                oneTool.draggable = true;
-                oneTool.style.position = 'absolute';
-
-                if (isDisc) {
-                    oneTool.classList.add('schijf', 'schijf-geel');
-                    oneTool.textContent = '1';
-                    oneTool.style.left = `${5 + (i % 5) * 60}px`;
-                    oneTool.style.top = `${5 + Math.floor(i / 5) * 60}px`;
-                } else {
-                    oneTool.classList.add('geel-blok');
-                    oneTool.style.left = `${5 + (i % 4) * 40}px`;
-                    oneTool.style.top = `${5 + Math.floor(i / 4) * 40}px`;
-                }
-                eBox.appendChild(oneTool);
-            }
-            tTool.remove();
-            btn.remove();
-        }
-
-        function createExchangeButton(tool, box) {
-            if (box.querySelector('.exchange-btn')) return;
-
-            const btn = document.createElement('button');
-            btn.textContent = 'wissel om';
-            btn.className = 'exchange-btn';
-            
-            const toolRect = tool.getBoundingClientRect();
-            const boxRect = box.getBoundingClientRect();
-            
-            btn.style.left = `${toolRect.left - boxRect.left + toolRect.width + 5}px`;
-            btn.style.top = `${toolRect.top - boxRect.top + (toolRect.height / 2) - 18}px`;
-            
-            btn.onclick = () => {
-                const value = parseInt(tool.dataset.value, 10);
-                if (value === 100) {
-                    performExchangeHtoT(tool, btn);
-                } else if (value === 10) {
-                    performExchangeTtoE(tool, btn);
-                }
-            };
-            box.appendChild(btn);
-        }
-
         function onDrop(e) {
             e.preventDefault();
             if (!dragElement) return;
@@ -548,43 +469,25 @@
             if (!dropTarget) return;
 
             const isFromToolbar = dragElement.parentElement.id === 'toolbar';
-            const toolValue = parseInt(dragElement.dataset.value, 10);
-            const isMinSchema = schemaMin.style.display === 'grid';
-            const isExchangeBox = dropTarget.classList.contains('min-bottom-box');
-            const exchangeColumn = dropTarget.dataset.column;
+            
+            const toolToDrop = isFromToolbar ? dragElement.cloneNode(true) : dragElement;
+            toolToDrop.style.position = 'absolute';
+            toolToDrop.style.opacity = '1';
+            
+            if (isFromToolbar) toolToDrop.id = `tool-${Date.now()}`;
 
-            const isExchangeH = toolValue === 100 && exchangeColumn === 'H';
-            const isExchangeT = toolValue === 10 && exchangeColumn === 'T';
-
-            if (isMinSchema && isExchangeBox && !isFromToolbar && (isExchangeH || isExchangeT)) {
-                const tool = dragElement;
-                tool.style.position = 'absolute';
-                tool.style.opacity = '1';
-                const targetRect = dropTarget.getBoundingClientRect();
-                tool.style.left = `${e.clientX - targetRect.left - offsetX}px`;
-                tool.style.top = `${e.clientY - targetRect.top - offsetY}px`;
-                dropTarget.appendChild(tool);
-                createExchangeButton(tool, dropTarget);
-            }
-            else {
-                const toolToDrop = isFromToolbar ? dragElement.cloneNode(true) : dragElement;
-                toolToDrop.style.position = 'absolute';
-                toolToDrop.style.opacity = '1';
-                
-                if (isFromToolbar) {
-                    toolToDrop.id = `tool-${Date.now()}`;
-                }
-
-                const targetRect = dropTarget.getBoundingClientRect();
-                toolToDrop.style.left = `${e.clientX - targetRect.left - offsetX}px`;
-                toolToDrop.style.top = `${e.clientY - targetRect.top - offsetY}px`;
-                dropTarget.appendChild(toolToDrop);
-            }
+            const targetRect = dropTarget.getBoundingClientRect();
+            toolToDrop.style.left = `${e.clientX - targetRect.left - offsetX}px`;
+            toolToDrop.style.top = `${e.clientY - targetRect.top - offsetY}px`;
+            dropTarget.appendChild(toolToDrop);
+            
+            updateSchema();
         }
         
         function onVuilbakDrop(e) {
             e.preventDefault();
             if (!dragElement || dragElement.parentElement.id === 'toolbar') return;
+            
             droppedInTrash = true;
             const value = parseInt(dragElement.dataset.value, 10);
             if (trashCounts.hasOwnProperty(value)) {
@@ -593,21 +496,107 @@
                 tCount.textContent = trashCounts[10];
                 eCount.textContent = trashCounts[1];
             }
+            updateSchema();
+        }
+        
+        function updateSchema() {
+             if (schemaPlus.style.display === 'grid') {
+                updatePlusSchema();
+             }
+        }
+        
+        function updatePlusSchema() {
+            // --- Verwijder bestaande knoppen ---
+            document.querySelectorAll('#plus-exchange-t-h-btn, #plus-exchange-e-t-btn').forEach(btn => btn.remove());
+
+            // --- Logica voor Eenheden naar Tientallen ---
+            const unitsZone = document.querySelector('#schema-plus .plus-e-inner');
+            const unitsItems = unitsZone.querySelectorAll('[data-value="1"]');
+            
+            if (unitsItems.length === 10) {
+                const btn = document.createElement('button');
+                btn.textContent = 'wissel om';
+                btn.className = 'exchange-btn';
+                btn.id = 'plus-exchange-e-t-btn';
+                
+                const zoneRect = unitsZone.getBoundingClientRect();
+                const mainRect = mainContent.getBoundingClientRect();
+                
+                btn.style.left = `${zoneRect.left - mainRect.left}px`;
+                btn.style.top = `${zoneRect.top - mainRect.top - 45}px`;
+                
+                btn.onclick = () => {
+                    const isDisc = unitsItems[0].classList.contains('schijf');
+                    unitsItems.forEach(item => item.remove());
+                    
+                    const newTen = document.createElement('div');
+                    newTen.dataset.value = '10';
+                    newTen.draggable = true;
+                    newTen.style.position = 'absolute';
+                    newTen.style.left = '10px';
+                    newTen.style.top = '10px';
+                    
+                    if (isDisc) {
+                        newTen.className = 'tool schijf schijf-groen';
+                        newTen.textContent = '10';
+                    } else {
+                        newTen.className = 'tool staaf-groen';
+                    }
+                    
+                    document.querySelector('#schema-plus .plus-t-span').appendChild(newTen);
+                    btn.remove();
+                    updatePlusSchema(); 
+                };
+                mainContent.appendChild(btn);
+            }
+
+            // --- Logica voor Tientallen naar Honderdtallen ---
+            const tensZone = document.querySelector('#schema-plus .plus-t-span');
+            const tensItems = tensZone.querySelectorAll('[data-value="10"]');
+            
+            if (tensItems.length === 10) {
+                const btn = document.createElement('button');
+                btn.textContent = 'wissel om';
+                btn.className = 'exchange-btn';
+                btn.id = 'plus-exchange-t-h-btn';
+                
+                const zoneRect = tensZone.getBoundingClientRect();
+                const mainRect = mainContent.getBoundingClientRect();
+                
+                btn.style.left = `${zoneRect.left - mainRect.left}px`;
+                btn.style.top = `${zoneRect.top - mainRect.top - 45}px`;
+                
+                btn.onclick = () => {
+                    const isDisc = tensItems[0].classList.contains('schijf');
+                    tensItems.forEach(item => item.remove());
+                    
+                    const newHundred = document.createElement('div');
+                    newHundred.dataset.value = '100';
+                    newHundred.draggable = true;
+                    newHundred.style.position = 'absolute';
+                    newHundred.style.left = '10px';
+                    newHundred.style.top = '10px';
+                    
+                    if (isDisc) {
+                        newHundred.className = 'tool schijf schijf-blauw';
+                        newHundred.textContent = '100';
+                    } else {
+                        newHundred.className = 'tool vlak-blauw';
+                    }
+                    
+                    document.querySelector('#schema-plus .plus-r1-h').appendChild(newHundred);
+                    btn.remove();
+                };
+                
+                mainContent.appendChild(btn);
+            }
         }
 
         // --- Event Listeners ---
         btnStartPlus.addEventListener('click', () => startApp('plus'));
         btnStartMin.addEventListener('click', () => startApp('min'));
         btnTerug.addEventListener('click', returnToStart);
-        btnReset.addEventListener('click', () => { 
-            document.querySelectorAll('.drop-zone').forEach(vak => {
-                vak.innerHTML = '';
-            });
-            trashCounts = { 100: 0, 10: 0, 1: 0 };
-            hCount.textContent = 0;
-            tCount.textContent = 0;
-            eCount.textContent = 0;
-        });
+        btnReset.addEventListener('click', resetApp);
         
         document.body.addEventListener('dragstart', onDragStart);
         document.body.addEventListener('dragend', onDragEnd);
