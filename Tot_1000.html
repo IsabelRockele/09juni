@@ -145,17 +145,31 @@
             margin-bottom: 20px;
             min-height: 80px;
         }
+
+        /* --- AANGEPASTE KNOP STIJLEN --- */
         .toolbar-btn, .exchange-btn {
             background-color: #007bff;
             color: white;
             border: none;
-            padding: 10px 20px;
-            font-size: 1em;
-            border-radius: 5px;
             cursor: pointer;
         }
-        .toolbar-btn:hover, .exchange-btn:hover { background-color: #0056b3; }
+        .toolbar-btn:hover, .exchange-btn:hover { 
+            background-color: #0056b3; 
+        }
+
+        /* Grotere knoppen voor de toolbar */
+        .toolbar-btn {
+            padding: 20px 30px;
+            font-size: 1.5em;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        /* Kleinere knop voor 'wissel om' */
         .exchange-btn {
+            padding: 10px 15px;
+            font-size: 1em;
+            border-radius: 5px;
             position: absolute;
             z-index: 100;
         }
@@ -407,8 +421,6 @@
             tCount.textContent = 0;
             eCount.textContent = 0;
             
-            document.querySelectorAll('.exchange-btn').forEach(btn => btn.remove());
-            
             updateSchema();
         }
 
@@ -476,6 +488,13 @@
             
             if (isFromToolbar) toolToDrop.id = `tool-${Date.now()}`;
 
+            // *** LOGICA VOOR MIN-SCHEMA TOEGEVOEGD ***
+            if (dropTarget.matches('#schema-min .min-bottom-box')) {
+                toolToDrop.dataset.canExchange = 'true';
+            } else {
+                delete toolToDrop.dataset.canExchange;
+            }
+
             const targetRect = dropTarget.getBoundingClientRect();
             toolToDrop.style.left = `${e.clientX - targetRect.left - offsetX}px`;
             toolToDrop.style.top = `${e.clientY - targetRect.top - offsetY}px`;
@@ -499,15 +518,19 @@
             updateSchema();
         }
         
+        // *** AANGEPASTE updateSchema FUNCTIE ***
         function updateSchema() {
+             document.querySelectorAll('.exchange-btn').forEach(btn => btn.remove());
+
              if (schemaPlus.style.display === 'grid') {
                 updatePlusSchema();
+             } else if (schemaMin.style.display === 'grid') {
+                updateMinSchema();
              }
         }
         
         function updatePlusSchema() {
-            // --- Verwijder bestaande knoppen ---
-            document.querySelectorAll('#plus-exchange-t-h-btn, #plus-exchange-e-t-btn').forEach(btn => btn.remove());
+            // DEZE REGEL IS VERWIJDERD: document.querySelectorAll('#plus-exchange-t-h-btn, #plus-exchange-e-t-btn').forEach(btn => btn.remove());
 
             // --- Logica voor Eenheden naar Tientallen ---
             const unitsZone = document.querySelector('#schema-plus .plus-e-inner');
@@ -544,8 +567,7 @@
                     }
                     
                     document.querySelector('#schema-plus .plus-t-span').appendChild(newTen);
-                    btn.remove();
-                    updatePlusSchema(); 
+                    updateSchema(); 
                 };
                 mainContent.appendChild(btn);
             }
@@ -585,11 +607,106 @@
                     }
                     
                     document.querySelector('#schema-plus .plus-r1-h').appendChild(newHundred);
-                    btn.remove();
+                    updateSchema();
                 };
                 
                 mainContent.appendChild(btn);
             }
+        }
+
+        // *** NIEUWE updateMinSchema FUNCTIE ***
+        function updateMinSchema() {
+            const hundredsZone = document.querySelector('#schema-min .min-bottom-box[data-column="H"]');
+            const hundredItems = hundredsZone.querySelectorAll('[data-value="100"][data-can-exchange="true"]');
+
+            hundredItems.forEach(item => {
+                const btn = document.createElement('button');
+                btn.textContent = 'wissel om';
+                btn.className = 'exchange-btn';
+                
+                const itemRect = item.getBoundingClientRect();
+                const mainRect = mainContent.getBoundingClientRect();
+                
+                btn.style.left = `${itemRect.right - mainRect.left + 5}px`;
+                btn.style.top = `${itemRect.top - mainRect.top}px`;
+
+                btn.onclick = () => {
+                    const isDisc = item.classList.contains('schijf');
+                    item.remove(); 
+
+                    const tensTargetZone = document.querySelector('#schema-min .min-bottom-box[data-column="T"]');
+                    for (let i = 0; i < 10; i++) {
+                        const newTen = document.createElement('div');
+                        newTen.dataset.value = '10';
+                        newTen.draggable = true;
+                        newTen.style.position = 'absolute';
+                        
+                        if (isDisc) {
+                            newTen.style.left = `${10 + (i % 5) * 65}px`;
+                            newTen.style.top = `${10 + Math.floor(i / 5) * 65}px`;
+                        } else {
+                            newTen.style.left = '10px';
+                            newTen.style.top = `${10 + i * 25}px`;
+                        }
+
+                        if (isDisc) {
+                            newTen.className = 'tool schijf schijf-groen';
+                            newTen.textContent = '10';
+                        } else {
+                            newTen.className = 'tool staaf-groen';
+                        }
+                        tensTargetZone.appendChild(newTen);
+                    }
+                    updateSchema();
+                };
+                mainContent.appendChild(btn);
+            });
+
+            const tensZone = document.querySelector('#schema-min .min-bottom-box[data-column="T"]');
+            const tensItems = tensZone.querySelectorAll('[data-value="10"][data-can-exchange="true"]');
+
+            tensItems.forEach(item => {
+                const btn = document.createElement('button');
+                btn.textContent = 'wissel om';
+                btn.className = 'exchange-btn';
+                
+                const itemRect = item.getBoundingClientRect();
+                const mainRect = mainContent.getBoundingClientRect();
+                
+                btn.style.left = `${itemRect.right - mainRect.left + 5}px`;
+                btn.style.top = `${itemRect.top - mainRect.top}px`;
+
+                btn.onclick = () => {
+                    const isDisc = item.classList.contains('schijf');
+                    item.remove();
+
+                    const unitsTargetZone = document.querySelector('#schema-min .min-bottom-box[data-column="E"]');
+                    for (let i = 0; i < 10; i++) {
+                        const newUnit = document.createElement('div');
+                        newUnit.dataset.value = '1';
+                        newUnit.draggable = true;
+                        newUnit.style.position = 'absolute';
+                        
+                        if (isDisc) {
+                            newUnit.style.left = `${10 + (i % 5) * 65}px`;
+                            newUnit.style.top = `${10 + Math.floor(i / 5) * 65}px`;
+                        } else {
+                            newUnit.style.left = `${10 + (i % 5) * 45}px`;
+                            newUnit.style.top = `${10 + Math.floor(i / 5) * 45}px`;
+                        }
+
+                        if (isDisc) {
+                            newUnit.className = 'tool schijf schijf-geel';
+                            newUnit.textContent = '1';
+                        } else {
+                            newUnit.className = 'tool geel-blok';
+                        }
+                        unitsTargetZone.appendChild(newUnit);
+                    }
+                    updateSchema();
+                };
+                mainContent.appendChild(btn);
+            });
         }
 
         // --- Event Listeners ---
