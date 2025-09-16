@@ -67,6 +67,7 @@
         .keypad-btn:hover { background-color: #e0e0e0; }
         .keypad-btn.ok-btn { grid-column: span 2; background-color: #4CAF50; color: white; }
         .keypad-btn.clear-btn { background-color: #f44336; color: white; }
+        .keypad-btn { touch-action: manipulation; }
         #exercise-modal:not(.hidden) .modal-content { animation: fadeInScale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         
         #win-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 3000; display: flex; justify-content: center; align-items: center; flex-direction: column; }
@@ -165,7 +166,11 @@
         <div id="exercise-modal" class="hidden">
             <div class="modal-content">
                 <h2 id="modal-question">? + 3 = 10</h2>
-                <input type="text" id="modal-answer-display" readonly>
+                <input type="text" id="modal-answer-display"
+       readonly inputmode="none"
+       autocomplete="off" autocorrect="off" autocapitalize="off"
+       enterkeyhint="done">
+
                 <div class="numeric-keypad">
                     <button class="keypad-btn" data-key="1">1</button> <button class="keypad-btn" data-key="2">2</button> <button class="keypad-btn" data-key="3">3</button>
                     <button class="keypad-btn" data-key="4">4</button> <button class="keypad-btn" data-key="5">5</button> <button class="keypad-btn" data-key="6">6</button>
@@ -230,7 +235,12 @@
         });
 
         startSpelKnop.addEventListener('click', () => { if (playerCount && targetNumber) startGame(); });
-        keypadButtons.forEach(button => button.addEventListener('click', () => handleKeypad(button.dataset.key)));
+        keypadButtons.forEach(btn => {
+  btn.addEventListener('pointerup', (e) => {
+    e.preventDefault();                  // voorkomt “synthetic click” op iOS
+    handleKeypad(btn.dataset.key);
+  }, { passive: false });
+});
         
         winPlayAgainBtn.addEventListener('click', () => {
             winScreen.classList.add('hidden');
@@ -434,10 +444,12 @@
         }
 
         function showExerciseModal(question) {
-            modalQuestion.textContent = question;
-            modalAnswerDisplay.value = '';
-            exerciseModal.classList.remove('hidden');
-        }
+  modalQuestion.textContent = question;
+  modalAnswerDisplay.value = '';
+  modalAnswerDisplay.blur();            // extra zekerheid: nooit toetsenbord
+  exerciseModal.classList.remove('hidden');
+}
+
 
         function handleKeypad(key) {
             if (key === 'OK') {
