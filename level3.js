@@ -25,15 +25,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-
 if (!gekozenTafels) {
   gekozenTafels = JSON.parse(localStorage.getItem("tafel_lijst")) || [2];
   sessionStorage.setItem("tafels", JSON.stringify(gekozenTafels));
 }
 
-
-
-
+// (Duplicaten in het originele bestand behouden – we wijzigen alleen iPad-invoer)
 if (gekozenTafels.length === 1) {
   tijdsduur = 120;
   totaalOefeningen = 20;
@@ -55,9 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-
-
-
 if (gekozenTafels.length === 1) {
   tijdsduur = 120;
   totaalOefeningen = 20;
@@ -68,10 +62,10 @@ if (gekozenTafels.length === 1) {
   tijdsduur = 300;
   totaalOefeningen = 40;
 } else {
-document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("instructie-zin").textContent = `Kan jij ${totaalOefeningen} oefeningen zonder fouten oplossen binnen de tijd?`;
-});
-
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("instructie-zin").textContent =
+      `Kan jij ${totaalOefeningen} oefeningen zonder fouten oplossen binnen de tijd?`;
+  });
   tijdsduur = 350;
   totaalOefeningen = 50;
 }
@@ -94,6 +88,9 @@ const juf = document.getElementById("juf");
 const bord = document.getElementById("bord");
 const startKnop = document.getElementById("start-knop");
 const timerDisplay = document.getElementById("timer");
+
+/* NIEUW: nooit iPad-toetsenbord openen bij focus */
+invoerveld.addEventListener('focus', () => invoerveld.blur());
 
 function genereerOpgaven() {
   const alleOpgaven = [];
@@ -171,7 +168,13 @@ function toonToetsenbord() {
     const knop = document.createElement("button");
     knop.className = "toets";
     knop.textContent = t;
-    knop.addEventListener("click", () => toetsInvoegen(t));
+
+    /* NIEUW: iPad-proof – gebruik één pointer-event (geen click/touch-dubbel) */
+    knop.addEventListener("pointerup", (e) => {
+      e.preventDefault();
+      toetsInvoegen(t);
+    }, { passive: false });
+
     toetsenbord.appendChild(knop);
   });
 }
@@ -216,11 +219,11 @@ function startVisueleTimer(tijd) {
     const radius = Math.min(w, h) / 2 - 38;
     ctx.clearRect(0, 0, w, h);
     let kleur = 'green';
-if (tijdVisueel <= 15) {
-  kleur = 'red';
-} else if (tijdVisueel <= tijd / 2) {
-  kleur = 'orange';
-}
+    if (tijdVisueel <= 15) {
+      kleur = 'red';
+    } else if (tijdVisueel <= tijd / 2) {
+      kleur = 'orange';
+    }
     ctx.beginPath();
     ctx.moveTo(cx, cy);
     ctx.fillStyle = kleur;
@@ -286,11 +289,5 @@ function vuurwerkEffect() {
   }, 2500);
 }
 
-function opnieuwOefenen() {
-  location.reload();
-}
-
-function gaTerug() {
-  window.location.href = "tafel_oefenen.html";
-}
-
+function opnieuwOefenen() { location.reload(); }
+function gaTerug() { window.location.href = "tafel_oefenen.html"; }
