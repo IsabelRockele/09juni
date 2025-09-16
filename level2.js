@@ -1,4 +1,3 @@
-
 let gekozenTafels = JSON.parse(sessionStorage.getItem("tafels")) || [2];
 let totaalAantalOefeningen = gekozenTafels.length > 4 ? 30 : 20;
 let opgaven = [];
@@ -15,28 +14,24 @@ const invoerveld = document.getElementById("invoerveld");
 const toetsenbord = document.getElementById("toetsenbord");
 const feedback = document.getElementById("feedback");
 
+// NIEUW: nooit iPad-toetsenbord tonen als het veld per ongeluk focus krijgt
+invoerveld.addEventListener('focus', () => invoerveld.blur());
+
 function genereerGemengdeOpgaven() {
   const alleOpgaven = [];
   let gekozenType = sessionStorage.getItem("tafel_type") || "maal";
   gekozenTafels.forEach(tafel => {
     if (gekozenType === "maal" || gekozenType === "beide") {
       for (let i = 0; i <= 10; i++) {
-        alleOpgaven.push({
-          vraag: `${i} × ${tafel}`,
-          juist: i * tafel
-        });
+        alleOpgaven.push({ vraag: `${i} × ${tafel}`, juist: i * tafel });
       }
     }
     if (gekozenType === "delen" || gekozenType === "beide") {
       for (let i = 0; i <= 10; i++) {
-        alleOpgaven.push({
-          vraag: `${i * tafel} ÷ ${tafel}`,
-          juist: i
-        });
+        alleOpgaven.push({ vraag: `${i * tafel} ÷ ${tafel}`, juist: i });
       }
     }
   });
-  // Nu alles schudden (random door elkaar!)
   alleOpgaven.sort(() => Math.random() - 0.5);
   return alleOpgaven.slice(0, totaalAantalOefeningen);
 }
@@ -50,7 +45,7 @@ function startOefeningen() {
   ronde2Score = 0;
   herhaling = false;
   feedback.innerHTML = "";
-    toonVolgende();
+  toonVolgende();
 }
 
 function toonVolgende() {
@@ -64,10 +59,10 @@ function toonVolgende() {
       feedback.innerHTML = "We gaan nu de foutjes nog eens oefenen...";
       document.getElementById("opgave").textContent = "";
       document.getElementById("invoerveld").value = "";
-  document.getElementById("invoerveld").style.display = "none";
+      document.getElementById("invoerveld").style.display = "none";
       setTimeout(() => {
         feedback.innerHTML = "";
-          toonVolgende();
+        toonVolgende();
       }, 1500);
     } else {
       toonFeedback();
@@ -116,7 +111,13 @@ function toonToetsenbord() {
     const knop = document.createElement("button");
     knop.className = "toets";
     knop.textContent = t;
-    knop.addEventListener("click", () => toetsInvoegen(t));
+
+    // NIEUW: iPad-proof – één pointer-event, geen click/touch-dubbel
+    knop.addEventListener("pointerup", (e) => {
+      e.preventDefault();
+      toetsInvoegen(t);
+    }, { passive: false });
+
     toetsenbord.appendChild(knop);
   });
 }
@@ -148,7 +149,6 @@ function toonFeedback() {
   knop.style.borderRadius = "12px";
   knop.style.cursor = "pointer";
 
-  
   if (ronde1Score === opgaven.length) {
     const vuurwerkDiv = document.getElementById("vuurwerk");
     vuurwerkDiv.style.display = "block";
@@ -171,10 +171,10 @@ function toonFeedback() {
     const container = document.getElementById("knop-level3");
     container.innerHTML = "";
     container.appendChild(knop);
-    
+
     setTimeout(() => {
-  knop.scrollIntoView({ behavior: "smooth", block: "center" });
-}, 200);
+      knop.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 200);
   }
 
   const overzicht = document.getElementById("tafels-lijst");
@@ -187,7 +187,6 @@ function toonFeedback() {
       overzicht.appendChild(badge);
     });
   }
-
 }
 
 function opnieuwOefenen() {
