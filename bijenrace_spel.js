@@ -308,22 +308,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Verwerk numerieke invoer
-    numpad.addEventListener('click', (event) => {
-        if (event.target.classList.contains('num-button')) {
-            const value = event.target.dataset.value;
+    // Verwerk numerieke invoer — iPad-proof (pointer events)
+numpad.addEventListener('pointerup', (event) => {
+    if (!(event.target instanceof HTMLElement)) return;
+    if (!event.target.classList.contains('num-button')) return;
+    event.preventDefault(); // voorkomt synthetic click/ dubbele invoer op iOS
 
-            if (value === 'C') {
-                currentAnswer = '';
-            } else if (value === 'Enter') {
-                checkAnswer();
-                return;
-            } else {
-                currentAnswer += value;
-            }
-            const baseQuestion = questionText.textContent.split('=')[0];
-            questionText.textContent = `${baseQuestion}= ${currentAnswer}`;
-        }
-    });
+    const value = event.target.dataset.value;
+
+    if (value === 'C') {
+        currentAnswer = '';
+    } else if (value === 'Enter') {
+        checkAnswer();
+        return;
+    } else {
+        currentAnswer += value; // 0–9
+    }
+
+    const baseQuestion = questionText.textContent.split('=')[0];
+    questionText.textContent = `${baseQuestion}= ${currentAnswer}`;
+}, { passive: false });
+
 
     function checkAnswer() {
         const correctAnswer = questionText.dataset.correctAnswer;
