@@ -260,3 +260,5 @@ body {
 #winnerRestartButton:hover {
     background-color: #00acc1;
 }
+/* iPad: voorkom 300ms delay en dubbele click */
+.numpad, .num-button { touch-action: manipulation; }
