@@ -142,16 +142,17 @@ function toonAntwoorden(juistAntwoord) {
   opties.forEach(antwoordNummer => {
     const el = document.createElement("div");
     el.className = "antwoord";
-    // el.draggable = true; // Niet meer nodig voor klikken
     el.textContent = antwoordNummer;
     el.dataset.value = antwoordNummer;
 
-    // console.log("Antwoord element: Tekst =", el.textContent, "| Draggable =", el.draggable, "| Waarde =", antwoordNummer); // Diagnostische log, kan later weg
+    // iPad: snellere, betrouwbare tik (zonder 300ms delay)
+    el.style.touchAction = 'manipulation';
 
-    el.addEventListener("click", function() {
-      console.log("Antwoord geklikt:", antwoordNummer, "Element:", el); // Diagnostische log
+    // iPad-proof: één pointer-event (geen dubbele click/touch)
+    el.addEventListener("pointerup", (e) => {
+      e.preventDefault();
       verwerkGekozenAntwoord(antwoordNummer, el);
-    });
+    }, { passive: false });
 
     antwoordenContainer.appendChild(el);
   });
@@ -187,7 +188,6 @@ function verwerkGekozenAntwoord(gekozenNummer, antwoordElement) {
     setTimeout(() => {
       huidigeIndex++;
       toonVolgende();
-      // Eventuele reset van stijlen gebeurt als antwoorden opnieuw worden getoond
     }, 800);
   } else {
     if (antwoordElement) {
@@ -209,7 +209,6 @@ function verwerkGekozenAntwoord(gekozenNummer, antwoordElement) {
       ballon.style.display = "none";
       huidigeIndex++;
       toonVolgende();
-      // Eventuele reset van stijlen gebeurt als antwoorden opnieuw worden getoond
     }, 1800);
   }
 }
@@ -331,13 +330,13 @@ function toonFeedback() {
     knopContainer.appendChild(knop);
 
     const container = document.getElementById("knop-level2");
-container.innerHTML = "";
-container.appendChild(knopContainer);
+    container.innerHTML = "";
+    container.appendChild(knopContainer);
 
-// Scroll naar de knop als deze buiten beeld zou vallen
-setTimeout(() => {
-  knopContainer.scrollIntoView({ behavior: "smooth", block: "center" });
-}, 200);
+    // Scroll naar de knop als deze buiten beeld zou vallen
+    setTimeout(() => {
+      knopContainer.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 200);
   }
 
   const overzicht = document.getElementById("tafels-lijst");
