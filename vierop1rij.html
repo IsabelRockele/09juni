@@ -6,17 +6,17 @@
   <title>4 op een rij met tafels</title>
   <link href="vierop1rij.css" rel="stylesheet"/>
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const isIPadMini = /iPad/.test(navigator.userAgent) &&
-                       window.devicePixelRatio === 2 &&
-                       ((screen.width === 768 && screen.height === 1024) ||
-                        (screen.width === 1024 && screen.height === 768));
-    if (isIPadMini) {
-      document.body.classList.add("ipad-mini");
-    }
-  });
-</script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const isIPadMini = /iPad/.test(navigator.userAgent) &&
+                         window.devicePixelRatio === 2 &&
+                         ((screen.width === 768 && screen.height === 1024) ||
+                          (screen.width === 1024 && screen.height === 768));
+      if (isIPadMini) {
+        document.body.classList.add("ipad-mini");
+      }
+    });
+  </script>
 </head>
 <body>
 <div class="pijl-links-boven">
@@ -79,19 +79,19 @@
       <div>
         <div id="oefeningContainer" style="font-size:2em; margin-bottom:20px; text-align:center; height: 50px;">Oefening komt hier</div>
         <div style="text-align:center; margin-bottom:20px;">
-          <input id="antwoordInput" maxlength="3" style="font-size:1.4em; padding:6px 10px; width:80px; text-align:center; border-radius:10px; border:2px solid #ccc;" type="text"/>
+          <!-- AANGEPAST: readonly + inputmode="none" en anti-autocorrect -->
+          <input id="antwoordInput" maxlength="3"
+                 type="text" readonly inputmode="none"
+                 autocomplete="off" autocorrect="off" autocapitalize="off" enterkeyhint="done"
+                 style="font-size:1.4em; padding:6px 10px; width:80px; text-align:center; border-radius:10px; border:2px solid #ccc;"/>
           <button id="controleerBtn" style="margin-left:10px; padding:10px 20px; font-size:1.1em; border-radius:10px; background-color:#8bc34a; color:white; border:none; cursor:pointer;">Controleer</button>
         </div>
         <div id="kolomKnoppen" style="display:grid; grid-template-columns:repeat(7, 60px); justify-content:center; gap:8px; margin-bottom:10px;">
           <button class="kolom-knop">↓</button><button class="kolom-knop">↓</button><button class="kolom-knop">↓</button><button class="kolom-knop">↓</button><button class="kolom-knop">↓</button><button class="kolom-knop">↓</button><button class="kolom-knop">↓</button>
         </div>
         <div id="bordContainer" style="background-color:#003f88; display:grid; grid-template-columns:repeat(7, 1fr); gap:8px; padding:12px; border-radius:12px; width:fit-content; margin:auto;">
-          <div class="vakje"></div><div class="vakje"></div><div class="vakje"></div><div class="vakje"></div><div class="vakje"></div><div class="vakje"></div><div class="vakje"></div>
-          <div class="vakje"></div><div class="vakje"></div><div class="vakje"></div><div class="vakje"></div><div class="vakje"></div><div class="vakje"></div><div class="vakje"></div>
-          <div class="vakje"></div><div class="vakje"></div><div class="vakje"></div><div class="vakje"></div><div class="vakje"></div><div class="vakje"></div><div class="vakje"></div>
-          <div class="vakje"></div><div class="vakje"></div><div class="vakje"></div><div class="vakje"></div><div class="vakje"></div><div class="vakje"></div><div class="vakje"></div>
-          <div class="vakje"></div><div class="vakje"></div><div class="vakje"></div><div class="vakje"></div><div class="vakje"></div><div class="vakje"></div><div class="vakje"></div>
-          <div class="vakje"></div><div class="vakje"></div><div class="vakje"></div><div class="vakje"></div><div class="vakje"></div><div class="vakje"></div><div class="vakje"></div>
+          <!-- 6 rijen × 7 kolommen -->
+          ${Array.from({length: 42}).map(() => '<div class="vakje"></div>').join('')}
         </div>
       </div>
 
