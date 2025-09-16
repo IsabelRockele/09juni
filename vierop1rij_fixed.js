@@ -356,7 +356,7 @@ function plaatsComputerFiche() {
 
   if (geldigeKolommen.length > 0) {
     const kolom = geldigeKolommen[Math.floor(Math.random() * geldigeKolommen.length)];
-    const ficheNode = document.querySelector('#speler2Zone .fiche-cirkel div');
+    const ficheNode = document.querySelector("#speler2Zone .fiche-cirkel div");
     if (!ficheNode) return;
 
     for (let rij = 5; rij >= 0; rij--) {
@@ -364,18 +364,27 @@ function plaatsComputerFiche() {
       const cel = cellen[celIndex];
       if (!cel.hasChildNodes()) {
         cel.appendChild(ficheNode.cloneNode(true));
-        document.querySelector('#speler2Zone .fiche-cirkel').innerHTML = "";
+        document.querySelector("#speler2Zone .fiche-cirkel").innerHTML = "";
 
-        if (!controleerWinst(rij, kolom, 'red')) {
+        if (!controleerWinst(rij, kolom, "red")) {
+          actieveSpeler = 1;              // ⇐ wissel naar speler 1
           startVolgendeBeurt();
         }
-        break;
+        return;
       }
     }
+
+    // Kolom toch vol? Wissel sowieso van speler.
+    actieveSpeler = 1;
+    startVolgendeBeurt();
+
   } else {
+    // Bord vol: ook hier beurt doorgeven.
+    actieveSpeler = 1;
     startVolgendeBeurt();
   }
 }
+
 
 function toonWinnendeSlotfase(kleur) {
   document.querySelector(".spel-inhoud").style.display = "none";
