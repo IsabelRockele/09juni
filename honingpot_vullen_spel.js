@@ -237,6 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handleToetsenbordKlik(event) {
+        event.preventDefault(); // voorkomt “synthetic click”/dubbel op iOS
         if (!spelActief) {
             console.warn("Toetsenbordklik genegeerd: spel niet actief.");
             return;
@@ -259,23 +260,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handleFysiekToetsenbord(event) {
-        if (!spelActief) {
-            console.warn("Fysieke toetsaanslag genegeerd: spel niet actief.");
-            return;
-        }
+    if (!spelActief) return;
 
-        if (event.key === 'Enter') {
-            controleerAntwoord();
-        } else if (event.key === 'Backspace') {
-            // Standaard browsergedrag (terug naar vorige teken)
-        } else if (!isNaN(parseInt(event.key))) { 
-            if (antwoordInput.value.length < 3) {
-                antwoordInput.value += event.key;
-            }
-        } else {
-            event.preventDefault(); 
-        }
+    if (event.key === 'Enter') {
+        // OK/controle
+        event.preventDefault();
+        controleerAntwoord();
+        return;
     }
+
+    // Pijlen, Backspace, Delete, Tab: gewoon toelaten
+    if (event.key === 'Backspace' || event.key === 'Delete' || event.key === 'Tab' ||
+        event.key.startsWith('Arrow')) {
+        return;
+    }
+
+    // Cijfers NIET zelf toevoegen — laat de browser/iPad het doen (voorkomt dubbel)
+    if (/^\d$/.test(event.key)) {
+        return;
+    }
+
+    // Alles anders blokkeren (letters, symbolen, ...)
+    event.preventDefault();
+}
+
 
     // NIEUWE FUNCTIES VOOR POP-UPS:
     function toonFoutSpreekballon() {
@@ -448,15 +456,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (toetsenbord) {
         console.log("Toetsenbord element gevonden. Event listener wordt gekoppeld.");
-        toetsenbord.addEventListener('click', handleToetsenbordKlik);
+        toetsenbord.addEventListener('pointerup', handleToetsenbordKlik, { passive: false });
     } else {
         console.error("Toetsenbord element niet gevonden! Kan event listener niet koppelen.");
     }
 
     if (antwoordInput) {
-        console.log("Antwoord input element gevonden. Keydown listener wordt gekoppeld.");
-        antwoordInput.addEventListener('keydown', handleFysiekToetsenbord);
-    } else {
-        console.error("Antwoord input element niet gevonden! Kan keydown listener niet koppelen.");
-    }
+    console.log("Antwoord input element gevonden. Keydown listener wordt gekoppeld.");
+    antwoordInput.addEventListener('keydown', handleFysiekToetsenbord);
+    antwoordInput.addEventListener('input', () => {
+        antwoordInput.value = antwoordInput.value.replace(/\D/g, '').slice(0, 3);
+    });
+} else {
+    console.error("Antwoord input element niet gevonden! Kan keydown listener niet koppelen.");
+}
 });
