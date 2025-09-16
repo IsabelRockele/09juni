@@ -19,25 +19,24 @@
         /* --- SPELPAGINA STIJLEN --- */
         .spel-container {
             display: flex;
-            align-items: flex-start; /* Lijn items bovenaan uit */
-            justify-content: center; /* Centreert de hoofdinhoud (bord + info) */
+            align-items: flex-start;
+            justify-content: center;
             gap: 30px;
             max-width: 1400px;
             margin: auto;
-            position: relative; /* Behoud deze voor eventuele andere relatieve positionering binnen de container */
+            position: relative;
             height: calc(100vh - 40px);
         }
 
-        /* Plaats de knoppen nu absoluut t.o.v. de body (of viewport) */
         .spel-links {
-            position: fixed; /* Gebruik 'fixed' om ze aan de viewport vast te zetten */
-            top: 20px; /* Lijn uit met de body padding */
-            left: 20px; /* Lijn uit met de body padding */
+            position: fixed;
+            top: 20px;
+            left: 20px;
             display: flex;
             flex-direction: column;
             gap: 15px;
-            z-index: 1000; /* Hogere z-index om zeker boven alles te liggen */
-            padding: 0; /* Geen padding hier, de top/left waarden bepalen de afstand */
+            z-index: 1000;
+            padding: 0;
         }
 
         .btn-actie { padding: 14px 28px; font-size: 1.4em; color: #fff; font-family: inherit; margin: 0; border: none; border-radius: 12px; cursor: pointer; }
@@ -48,8 +47,7 @@
             width: 100%;
             max-width: 800px;
             position: relative;
-            /* Voeg hier de margin-top toe om HET BORD te laten zakken */
-            margin-top: 140px; /* PAS DEZE WAARDE AAN NAAR WENS */
+            margin-top: 140px;
         }
 
         #ganzenbord {
@@ -75,8 +73,8 @@
         }
 
         .pion {
-            width: 80%; /* AANGEPAST: terug naar 70% */
-            height: 100%; /* AANGEPAST: terug naar 70% */
+            width: 80%;
+            height: 100%;
             object-fit: contain;
             position: absolute;
             transition: all 0.5s ease-in-out;
@@ -91,21 +89,15 @@
         .start-vak { background-color: #2a9d8f; color: white; }
         .vak-afbeelding { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; }
 
-        /* --- NIEUWE SPIRAAL INDELING (10x7 grid voor 35 vakjes + 1 oase) --- */
-        /* Start onderaan links, omhoog, dan rechts, dan naar beneden, dan links. */
-        /* De laatste vakjes 29 t/m 34 leiden direct naar het midden. */
-        /* Met een lege rand van 1 vak breed aan alle zijden */
-
-        /* Eerste kolom (onder naar boven) */
-        #vak-0 { grid-area: 7 / 1; } /* START-vak onderaan links */
+        /* Grid posities */
+        #vak-0 { grid-area: 7 / 1; }
         #vak-1 { grid-area: 6 / 1; }
         #vak-2 { grid-area: 5 / 1; }
         #vak-3 { grid-area: 4 / 1; }
         #vak-4 { grid-area: 3 / 1; }
         #vak-5 { grid-area: 2 / 1; }
-        #vak-6 { grid-area: 1 / 1; } /* Bovenste linkerhoek */
+        #vak-6 { grid-area: 1 / 1; }
 
-        /* Bovenste rij (links naar rechts) */
         #vak-7 { grid-area: 1 / 2; }
         #vak-8 { grid-area: 1 / 3; }
         #vak-9 { grid-area: 1 / 4; }
@@ -114,40 +106,33 @@
         #vak-12 { grid-area: 1 / 7; }
         #vak-13 { grid-area: 1 / 8; }
         #vak-14 { grid-area: 1 / 9; }
-        #vak-15 { grid-area: 1 / 10; } /* Bovenste rechterhoek */
+        #vak-15 { grid-area: 1 / 10; }
 
-        /* Rechter kolom (boven naar beneden) */
         #vak-16 { grid-area: 2 / 10; }
         #vak-17 { grid-area: 3 / 10; }
         #vak-18 { grid-area: 4 / 10; }
         #vak-19 { grid-area: 5 / 10; }
         #vak-20 { grid-area: 6 / 10; }
-        #vak-21 { grid-area: 7 / 10; } /* Onderste rechterhoek */
+        #vak-21 { grid-area: 7 / 10; }
 
-        /* Onderste rij (rechts naar links, dit is de laatste van de spiraal) */
         #vak-22 { grid-area: 7 / 9; }
         #vak-23 { grid-area: 7 / 8; }
         #vak-24 { grid-area: 7 / 7; }
         #vak-25 { grid-area: 7 / 6; }
         #vak-26 { grid-area: 7 / 5; }
         #vak-27 { grid-area: 7 / 4; }
-        #vak-28 { grid-area: 7 / 3; } /* Dit is vakje 28, het einde van de buitenste spiraal */
+        #vak-28 { grid-area: 7 / 3; }
 
-        /* De rechte lijn naar de oase */
-        /* Vakjes 29 t/m 32 gaan omhoog, in kolom 3 */
         #vak-29 { grid-area: 6 / 3; }
         #vak-30 { grid-area: 5 / 3; }
         #vak-31 { grid-area: 4 / 3; }
-        #vak-32 { grid-area: 3 / 3; } /* Hoogste punt van de verticale lijn */
+        #vak-32 { grid-area: 3 / 3; }
 
-        /* Vakjes 33, 34 gaan naar rechts, direct naast 32 */
         #vak-33 { grid-area: 3 / 4; }
-        #vak-34 { grid-area: 3 / 5; } /* Laatste vakje voor de oase */
+        #vak-34 { grid-area: 3 / 5; }
 
-        /* Het grote oase vak (35) direct naast vakje 34 */
-        /* De oase is 3x3 en begint nu op rij 3, kolom 6 */
         #vak-35 {
-            grid-area: 3 / 6 / span 3 / span 3; /* Van rij 3 t/m 5, kolommen 6 t/m 8 (3x3 blok) */
+            grid-area: 3 / 6 / span 3 / span 3;
             border-radius: 20px;
             border: 4px solid #2e7d32;
             display: flex;
@@ -155,11 +140,7 @@
             align-items: center;
             overflow: hidden;
         }
-        #vak-35 img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        #vak-35 img { width: 100%; height: 100%; object-fit: cover; }
 
         .speciaal { color: white; }
         .speciaal-gans { background-color: #87CEEB; }
@@ -176,10 +157,9 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
-            /* Voeg hier de margin-top toe om de info te laten zakken */
-            margin-top: 140px; /* PAS DEZE WAARDE AAN NAAR WENS (moet overeenkomen met ganzenbord-container) */
-            position: relative; /* Behoud deze als er nog andere absoluut gepositioneerde elementen in zitten */
-            padding-bottom: 0; /* Verwijder extra padding als Karl eruit is */
+            margin-top: 140px;
+            position: relative;
+            padding-bottom: 0;
         }
         .status-vak { font-size: 1.5em; font-weight: bold; padding: 15px; border: 4px solid; border-radius: 10px; transition: all 0.3s; }
         .speler-rood { border-color: #c62828; color: #c62828; }
@@ -191,98 +171,50 @@
         .spin-btn-style { padding: 12px 24px; font-size: 1.2em; color: #fff; background: #4CAF50; border-radius: 8px; cursor: pointer; }
         .spin-btn-style:disabled { background: #aaa; }
 
-        /* Algemene modal styling */
-        /* #karlCactusModal is hieronder expliciet gedefinieerd */
         #win-screen, #exercise-modal, #berichtModal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2000; background-color: rgba(0,0,0,0.6);
             display: flex; justify-content: center; align-items: center; flex-direction: column;
         }
 
-        /* Styling van de witte content box BINNEN een modal */
         .modal-content {
             background: white; padding: 30px; border-radius: 20px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.2);
             max-width: 450px; width: 90%;
         }
 
-        /* Specifieke styling voor elementen binnen modal-content (zoals in exercise-modal) */
         .modal-content h2, #berichtTekst { margin-top: 0; font-size: 2.2em; margin-bottom: 20px; color: #333; }
         #modal-answer-display { width: 100%; box-sizing: border-box; height: 60px; font-size: 2.5em; text-align: center; border: 2px solid #ccc; border-radius: 10px; margin-bottom: 20px; }
         .numeric-keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .keypad-btn { padding: 18px; font-size: 1.5em; border-radius: 10px; border: 1px solid #ddd; background-color: #f9f9f9; }
+
+        /* AANGEPAST: iOS tikrespons verbeteren */
+        .keypad-btn {
+            padding: 18px; font-size: 1.5em; border-radius: 10px; border: 1px solid #ddd; background-color: #f9f9f9;
+            touch-action: manipulation;
+        }
         .keypad-btn.ok-btn { grid-column: span 2; background-color: #4CAF50; color: white; }
         .keypad-btn.clear-btn { background-color: #f44336; color: white; }
         #sluitBerichtKnop { padding: 12px 30px; font-size: 1.2em; background-color: #0077b6; color: white; }
 
-        /* NIEUW: Karl Cactus Modale Styling - Volledig apart */
-        #karlCactusModal { /* Dit is de overlay en centrering voor Karl */
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2001; /* Hoger dan andere modals zodat Karl altijd bovenaan is */
-            background-color: rgba(0,0,0,0.7); /* Net iets donkerder overlay voor Karl */
-            display: flex; /* Gebruik flexbox om content te centreren */
-            justify-content: center;
-            align-items: center;
-            /* Flex direction hoeft niet column te zijn hier, want we centreren de boodschap box */
+        /* Karl Cactus modal */
+        #karlCactusModal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 2001; background-color: rgba(0,0,0,0.7);
+            display: flex; justify-content: center; align-items: center;
         }
-
-        /* Karl's boodschap box (wit vlak) */
         #karlMessageBox {
-            /* Hergebruik .modal-content basisstijlen, maar pas specifieke waarden aan voor Karl */
-            background: white;
-            padding: 20px; /* Iets minder padding */
-            border-radius: 20px;
-            text-align: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            max-width: 350px; /* Iets smaller dan standaard modal */
-            width: 80%; /* Responsief */
-            box-sizing: border-box;
-
-            display: flex;
-            flex-direction: column; /* Stack bubble en image verticaal */
-            align-items: center; /* Centreer ze horizontaal in de box */
-            gap: 10px; /* Kleinere gap tussen bubble en image */
+            background: white; padding: 20px; border-radius: 20px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            max-width: 350px; width: 80%; box-sizing: border-box;
+            display: flex; flex-direction: column; align-items: center; gap: 10px;
         }
-
-        /* Afbeelding van Karl Cactus binnen de modale box */
-        #karlCactusImage {
-            width: 120px; /* Grootte van Karl aanpassen */
-            height: auto;
-            display: block;
-        }
-
-        /* Spreekballon van Karl Cactus */
+        #karlCactusImage { width: 120px; height: auto; display: block; }
         #karlSpeechBubble {
-            background-color: white;
-            padding: 10px 15px;
-            border-radius: 15px;
-            border: 2px solid #582f0e;
-            font-size: 1em; /* Standaard lettertype grootte */
-            font-weight: bold;
-            color: black;
-            position: relative;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            min-width: 150px;
-            white-space: normal;
+            background-color: white; padding: 10px 15px; border-radius: 15px; border: 2px solid #582f0e;
+            font-size: 1em; font-weight: bold; color: black; position: relative; text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); min-width: 150px; white-space: normal;
         }
-
-        /* Pijltje van de spreekballon */
         #karlSpeechBubble::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%) rotate(45deg);
-            width: 16px;
-            height: 16px;
-            background-color: white;
-            border-right: 2px solid #582f0e;
-            border-bottom: 2px solid #582f0e;
-            z-index: -1;
-            border-bottom-right-radius: 3px;
+            content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%) rotate(45deg);
+            width: 16px; height: 16px; background-color: white; border-right: 2px solid #582f0e; border-bottom: 2px solid #582f0e;
+            z-index: -1; border-bottom-right-radius: 3px;
         }
     </style>
 </head>
@@ -320,7 +252,15 @@
     <div id="exercise-modal" class="hidden">
         <div class="modal-content">
             <h2 id="modal-question"></h2>
-            <input type="text" id="modal-answer-display" readonly>
+            <input
+              type="text"
+              id="modal-answer-display"
+              readonly
+              inputmode="none"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              enterkeyhint="done">
             <div class="numeric-keypad">
                 <button class="keypad-btn" data-key="1">1</button> <button class="keypad-btn" data-key="2">2</button> <button class="keypad-btn" data-key="3">3</button>
                 <button class="keypad-btn" data-key="4">4</button> <button class="keypad-btn" data-key="5">5</button> <button class="keypad-btn" data-key="6">6</button>
@@ -331,12 +271,14 @@
             </div>
         </div>
     </div>
+
     <div id="berichtModal" class="hidden">
         <div class="modal-content">
             <p id="berichtTekst"></p>
             <button id="sluitBerichtKnop">Oké</button>
         </div>
     </div>
+
     <div id="win-screen" class="hidden">
         <div class="win-content">
             <img id="win-image" src="" alt="Winnaar!">
@@ -349,11 +291,9 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // ---- SPELCONFIGURATIE ----
-            const TOTAAL_VAKJES = 35; // Totaal aantal genummerde vakjes (0 tot 34)
-            const OASE_VAKJE_NUMMER = 35; // Het nummer van het oase-vakje (eindpunt)
+            const TOTAAL_VAKJES = 35;
+            const OASE_VAKJE_NUMMER = 35;
 
-            // Speciale vakjes bijgewerkt voor de nieuwe bordgrootte
             const SPECIALE_VAKJES = {
                 6: { type: 'brug', doel: 12, bericht: 'Brug! Je snelt vooruit naar vakje 12.' },
                 19: { type: 'herberg', skip: 1, bericht: 'Herberg. Je rust een beurt uit.' },
@@ -361,21 +301,18 @@
                 37: { type: 'doolhof', doel: 30, bericht: 'Verdwaald! Terug naar vakje 30.' },
                 42: { type: 'dood', doel: 0, bericht: 'Oei! Terug naar de start.' },
             };
-            // Gans vakjes bijgewerkt voor de nieuwe bordgrootte
             const GANS_VAKJES = [4, 8, 13, 17, 21, 26, 30];
 
-            // ---- SPELVARIABELEN ----
             let spelOpties = {};
             let pionPosities = { rood: 0, blauw: 0 };
             let spelerAanDeBeurt = 'rood';
-            let aantalSpelers = '2'; // Standaardwaarde, wordt overschreven door localStorage
+            let aantalSpelers = '2';
             let huidigAntwoord = null;
             let currentRotation = 0;
             let spelActief = false;
             let wachtOpRedding = { rood: false, blauw: false };
             let skipBeurt = { rood: 0, blauw: 0 };
 
-            // ---- DOM-ELEMENTEN ----
             const bord = document.getElementById('ganzenbord');
             const statusVak = document.getElementById('statusVak');
             const feedbackVak = document.getElementById('feedback-area');
@@ -391,36 +328,32 @@
             const berichtTekst = document.getElementById('berichtTekst');
             const sluitBerichtKnop = document.getElementById('sluitBerichtKnop');
 
-            // NIEUW: DOM-elementen voor Karl Cactus Modal
             const karlCactusModal = document.getElementById('karlCactusModal');
             const karlSpeechBubble = document.getElementById('karlSpeechBubble');
 
-            // ---- NIEUWE FUNCTIE: Toon Karl Cactus met bericht ----
+            // NIEUW: nooit toetsenbord openen bij focus
+            modalAnswerDisplay.addEventListener('focus', () => modalAnswerDisplay.blur());
+
             function showKarlFeedback(message, duration = 3000, callback = null) {
-                // Zorg ervoor dat andere modals (zoals toetsenbord of algemeen bericht) verborgen zijn voordat Karl verschijnt
                 exerciseModal.classList.add('hidden');
                 berichtModal.classList.add('hidden');
 
                 if (!karlCactusModal || !karlSpeechBubble) return;
 
                 karlSpeechBubble.textContent = message;
-                karlCactusModal.classList.remove('hidden'); // Toon de hele modale container van Karl
+                karlCactusModal.classList.remove('hidden');
 
-                // Wis eventuele eerdere timeouts om te voorkomen dat hij te snel verdwijnt
                 clearTimeout(karlCactusModal._hideTimeout);
-
                 karlCactusModal._hideTimeout = setTimeout(() => {
-                    karlCactusModal.classList.add('hidden'); // Verberg de modale container van Karl
+                    karlCactusModal.classList.add('hidden');
                     if (callback) callback();
                 }, duration);
             }
 
-            // Voeg deze helper functie toe, ergens bovenaan in het script
             function sleep(ms) {
                 return new Promise(resolve => setTimeout(resolve, ms));
             }
 
-            // ---- INITIALISATIE ----
             function initSpel() {
                 pionPosities = { rood: 0, blauw: 0 };
                 spelerAanDeBeurt = 'rood';
@@ -430,10 +363,9 @@
                 wachtOpRedding = { rood: false, blauw: false };
                 skipBeurt = { rood: 0, blauw: 0 };
 
-                // Laad spelopties uit localStorage
                 const soort = localStorage.getItem('ganzenbord_soort') || 'maal';
                 const tafels = JSON.parse(localStorage.getItem('ganzenbord_tafels')) || [2, 5, 10];
-                aantalSpelers = localStorage.getItem('ganzenbord_aantalSpelers') || '2'; // Laad aantal spelers
+                aantalSpelers = localStorage.getItem('ganzenbord_aantalSpelers') || '2';
 
                 if (!soort || !tafels) {
                     alert("Geen keuzes gevonden, start via het keuzescherm.");
@@ -449,7 +381,6 @@
                 spelActief = true;
             }
 
-            // ---- BORD OPBOUW ----
             function maakBord() {
                 bord.innerHTML = '';
                 for (let i = 0; i < TOTAAL_VAKJES; i++) {
@@ -469,7 +400,7 @@
                     bord.appendChild(vakje);
                 }
                 const oaseVak = document.createElement('div');
-                oaseVak.id = `vak-${TOTAAL_VAKJES}`; // Oase is vakje TOTAAL_VAKJES (35)
+                oaseVak.id = `vak-${TOTAAL_VAKJES}`;
                 oaseVak.classList.add('vakje', 'eind-vak-groot');
                 oaseVak.innerHTML = `<img src="leerjaar3_afbeeldingen/oase.png" class="vak-afbeelding" alt="Oase">`;
                 bord.appendChild(oaseVak);
@@ -482,13 +413,10 @@
                 const winningSegment = segments[Math.floor(Math.random() * segments.length)];
                 const steps = winningSegment.value;
                 currentRotation += (5 * 360) + winningSegment.angle - (currentRotation % 360);
-                if (wheel) {
-                    wheel.style.transform = `rotate(${currentRotation}deg)`;
-                }
+                if (wheel) wheel.style.transform = `rotate(${currentRotation}deg)`;
                 setTimeout(() => {
-                    // Toon Karl Cactus voor de gooi-melding
                     showKarlFeedback(`Je gooide ${steps}. Los de som op om te bewegen!`, 3000, () => {
-                        toonOefening(steps); // Pas na Karl's verdwijnen de rekenoefening tonen
+                        toonOefening(steps);
                     });
                 }, 4100);
             }
@@ -497,20 +425,18 @@
                 let huidigeSpelerPositie = pionPosities[spelerAanDeBeurt];
                 let nieuwePositie = huidigeSpelerPositie + stappen;
 
-                // Speciale regel voor het ganzenbord: als je over de laatste plek heen gooit, kaats je terug
-                if (nieuwePositie > TOTAAL_VAKJES) { // TOTAAL_VAKJES is de Oase, dus 35
+                if (nieuwePositie > TOTAAL_VAKJES) {
                     nieuwePositie = TOTAAL_VAKJES - (nieuwePositie - TOTAAL_VAKJES);
                 }
 
                 pionPosities[spelerAanDeBeurt] = nieuwePositie;
                 updatePionPosities();
 
-                // Controleer op winst na de verplaatsing
-                if (nieuwePositie === TOTAAL_VAKJES) { // Winconditie: precies op de Oase landen
+                if (nieuwePositie === TOTAAL_VAKJES) {
                     spelActief = false;
                     spinKnop.disabled = true;
                     setTimeout(() => showWinScreen(spelerAanDeBeurt), 1000);
-                    return; // Stop verdere logica, want het spel is voorbij
+                    return;
                 }
 
                 setTimeout(() => checkSpecialeLogica(nieuwePositie, stappen), 800);
@@ -521,12 +447,12 @@
                 huidigAntwoord = { correct: oefening.correct, stappen: stappen };
                 modalQuestion.textContent = oefening.vraag;
                 modalAnswerDisplay.value = '';
+                modalAnswerDisplay.blur(); // NIEUW: zeker geen toetsenbord
 
-                // Als het de beurt van de computer is, los de oefening op
                 if (aantalSpelers === '1' && spelerAanDeBeurt === 'blauw') {
-                    setTimeout(() => computerLosOefeningOp(huidigAntwoord.correct, stappen), 1500); // Geef wat bedenktijd
+                    setTimeout(() => computerLosOefeningOp(huidigAntwoord.correct, stappen), 1500);
                 } else {
-                    exerciseModal.classList.remove('hidden'); // Toon nu de rekenoefening modal voor de speler
+                    exerciseModal.classList.remove('hidden');
                 }
             }
 
@@ -534,14 +460,12 @@
                 const { soort, tafels } = spelOpties;
                 const gekozenSoort = soort === 'beide' ? (Math.random() < 0.5 ? 'maal' : 'delen') : soort;
                 const getal1 = tafels[Math.floor(Math.random() * tafels.length)];
-                const getal2 = Math.floor(Math.random() * 10) + 1; // Getal tussen 1 en 10
+                const getal2 = Math.floor(Math.random() * 10) + 1;
                 if (gekozenSoort === 'maal') {
                     return { vraag: `${getal1} × ${getal2} = ?`, correct: getal1 * getal2 };
                 } else {
                     const product = getal1 * getal2;
-                    // Voorkom delen door nul of onzinnige sommen
                     if (getal1 === 0 || product % getal1 !== 0) {
-                        // Genereer een nieuwe als het ongeldig is (eenvoudige retry)
                         return genereerOefening();
                     }
                     return { vraag: `${product} ÷ ${getal1} = ?`, correct: getal2 };
@@ -550,12 +474,12 @@
 
             function handleKeypad(key) {
                 if (key === 'OK') {
-                    exerciseModal.classList.add('hidden'); // Verberg het toetsenbord
+                    exerciseModal.classList.add('hidden');
                     const userAnswer = modalAnswerDisplay.value === '' ? null : parseInt(modalAnswerDisplay.value);
                     checkAnswer(userAnswer);
                 } else if (key === 'DEL') {
                     modalAnswerDisplay.value = modalAnswerDisplay.value.slice(0, -1);
-                } else if (modalAnswerDisplay.value.length < 3) { // Max 3 cijfers voor antwoord
+                } else if (modalAnswerDisplay.value.length < 3) {
                     modalAnswerDisplay.value += key;
                 }
             }
@@ -564,10 +488,10 @@
                 const { correct, stappen } = huidigAntwoord;
                 if (userAnswer === correct) {
                     showKarlFeedback(`Correct! Je mag ${stappen} stappen vooruit.`, 2000);
-                    setTimeout(() => verplaatsPion(stappen), 1000); // Vertraag verplaatsing minder dan feedback
+                    setTimeout(() => verplaatsPion(stappen), 1000);
                 } else {
                     showKarlFeedback(`Fout! Het juiste antwoord was ${correct}. Je blijft staan.`, 2000);
-                    setTimeout(wisselBeurt, 2000); // Wissel direct beurt na fout antwoord
+                    setTimeout(wisselBeurt, 2000);
                 }
             }
 
@@ -585,10 +509,10 @@
                         }
                         if (speciaal.skip) skipBeurt[spelerAanDeBeurt] = speciaal.skip;
                         if (speciaal.wacht) wachtOpRedding[spelerAanDeBeurt] = true;
-                        wisselBeurt(); // Wissel beurt na speciale actie
+                        wisselBeurt();
                     });
                 } else {
-                    wisselBeurt(); // Wissel beurt na normale landing
+                    wisselBeurt();
                 }
             }
 
@@ -598,78 +522,66 @@
                 spelerAanDeBeurt = (spelerAanDeBeurt === 'rood') ? 'blauw' : 'rood';
                 updateStatus();
 
-                // Put-logica: is de ZITTENDE speler (nu dus de vorige) gered?
-                if (wachtOpRedding[spelerAanDeBeurt]) { // Checkt of de HUIDIGE speler in de put zit
+                if (wachtOpRedding[spelerAanDeBeurt]) {
                     const putPositie = Object.keys(SPECIALE_VAKJES).find(key => SPECIALE_VAKJES[key].type === 'put');
                     const andereSpelerPositie = pionPosities[(spelerAanDeBeurt === 'rood' ? 'blauw' : 'rood')];
 
-                    if (andereSpelerPositie > putPositie) { // Als de andere speler de put voorbij is
+                    if (andereSpelerPositie > putPositie) {
                         wachtOpRedding[spelerAanDeBeurt] = false;
                         toonBericht(`${spelerAanDeBeurt.charAt(0).toUpperCase() + spelerAanDeBeurt.slice(1)} is gered uit de put en mag weer meedoen!`, async () => {
-                            spinKnop.disabled = false; // Mag nu direct draaien
-                            // Als de geredde speler de computer is, start direct de computerbeurt
+                            spinKnop.disabled = false;
                             if (aantalSpelers === '1' && spelerAanDeBeurt === 'blauw') {
-                                await sleep(1000); // Korte pauze na bericht
+                                await sleep(1000);
                                 computerBeurt();
                             }
                         });
-                        return; // Beurt is afgehandeld
+                        return;
                     } else {
                         toonBericht(`${spelerAanDeBeurt.charAt(0).toUpperCase() + spelerAanDeBeurt.slice(1)} zit in de put en moet wachten...`, () => {
-                            wisselBeurt(); // Wissel direct terug naar de andere speler
+                            wisselBeurt();
                         });
                         return;
                     }
                 }
 
-                // Check op overgeslagen beurten voor de speler die AAN DE BEURT KOMT
                 if (skipBeurt[spelerAanDeBeurt] > 0) {
                     const beurtenOver = skipBeurt[spelerAanDeBeurt];
                     skipBeurt[spelerAanDeBeurt]--;
                     toonBericht(`${spelerAanDeBeurt.charAt(0).toUpperCase() + spelerAanDeBeurt.slice(1)} moet nog ${beurtenOver} beurt(en) wachten.`, () => {
-                        wisselBeurt(); // Wissel direct terug naar de andere speler
+                        wisselBeurt();
                     });
                     return;
                 }
 
-                spinKnop.disabled = false; // Activeer knop als alles ok is
+                spinKnop.disabled = false;
 
-                // NIEUW: Als het computerbeurt is, start deze dan na een korte pauze
                 if (aantalSpelers === '1' && spelerAanDeBeurt === 'blauw') {
-                    setTimeout(computerBeurt, 1000); // 1 seconde pauze voordat computer draait
+                    setTimeout(computerBeurt, 1000);
                 }
             }
 
-            // NIEUW: Functie voor de computerbeurt
             async function computerBeurt() {
                 if (!spelActief || spelerAanDeBeurt !== 'blauw') return;
-
                 showKarlFeedback(`Computercactus draait!`, 1500, async () => {
-                    await sleep(500); // Korte pauze voor de draai animatie
-                    spinWheel(); // Computer draait aan het rad
+                    await sleep(500);
+                    spinWheel();
                 });
             }
 
-            // NIEUW: Functie voor computer om oefening op te lossen (en fouten te maken)
             async function computerLosOefeningOp(correctAntwoord, stappen) {
-                exerciseModal.classList.add('hidden'); // Zorg dat de modal verborgen is voor de computer
+                exerciseModal.classList.add('hidden');
 
-                const kansOpFout = 0.2; // 20% kans dat de computer een fout maakt
+                const kansOpFout = 0.2;
                 let computerAntwoord = correctAntwoord;
 
                 if (Math.random() < kansOpFout) {
-                    // Maak een fout: antwoord ernaast (bijv. +1, -1, of een ander willekeurig getal)
                     const foutVariatie = Math.random() < 0.5 ? -1 : 1;
                     computerAntwoord = correctAntwoord + foutVariatie;
-                    // Zorg ervoor dat het antwoord niet negatief wordt, of 0 als het niet kan
                     if (computerAntwoord < 0) computerAntwoord = 0;
                 }
 
-                // Simuleer intypen van antwoord (optioneel, voor visuele feedback)
-                // Je kunt hier eventueel een animatie maken als je wilt dat de cijfers één voor één verschijnen.
-                // Voor nu: toon het antwoord in de feedback bubble
                 showKarlFeedback(`Computercactus denkt na...`, 1000, async () => {
-                    await sleep(1000); // Extra pauze voor het 'antwoord'
+                    await sleep(1000);
 
                     if (computerAntwoord === correctAntwoord) {
                         showKarlFeedback(`Computercactus antwoordt: ${correctAntwoord}. Correct!`, 2000);
@@ -681,36 +593,28 @@
                 });
             }
 
-            // AANGEPAST: toonBericht functie om showKarlFeedback te gebruiken
             function toonBericht(tekst, callback) {
-                // Sluit altijd de standaard berichtModal als deze open zou zijn
                 berichtModal.classList.add('hidden');
-                showKarlFeedback(tekst, 3000, () => {
-                    if (callback) callback();
-                });
+                showKarlFeedback(tekst, 3000, () => { if (callback) callback(); });
             }
 
             function updateStatus() {
                 const naam = spelerAanDeBeurt.charAt(0).toUpperCase() + spelerAanDeBeurt.slice(1);
                 statusVak.textContent = `${naam} is aan de beurt.`;
                 statusVak.className = `status-vak speler-${spelerAanDeBeurt}`;
-                feedbackVak.textContent = `Draai aan het rad, ${naam}!`; // Kan blijven voor initiële melding
+                feedbackVak.textContent = `Draai aan het rad, ${naam}!`;
             }
 
             function updatePionPosities() {
                 const vakRood = document.getElementById(`vak-${pionPosities.rood}`);
                 const vakBlauw = document.getElementById(`vak-${pionPosities.blauw}`);
 
-                // Verwijder pionnen uit oude vakjes (belangrijk voor schone update)
-                // Dit is de meest robuuste manier om te zorgen dat pionnen niet dubbel verschijnen.
                 const allPions = document.querySelectorAll('.pion');
                 allPions.forEach(p => p.remove());
 
-                // Plaats pionnen in nieuwe vakjes
                 if (vakRood) vakRood.appendChild(pionRood);
                 if (vakBlauw) vakBlauw.appendChild(pionBlauw);
 
-                // Beheer 'dubbel' klasse als pionnen op hetzelfde vakje staan
                 pionRood.classList.toggle('dubbel', pionPosities.rood === pionPosities.blauw && pionPosities.rood !== TOTAAL_VAKJES);
                 pionBlauw.classList.toggle('dubbel', pionPosities.rood === pionPosities.blauw && pionPosities.blauw !== TOTAAL_VAKJES);
             }
@@ -724,7 +628,6 @@
                 winScreen.classList.remove('hidden');
             }
 
-            // Event listeners
             document.getElementById('win-play-again').addEventListener('click', () => {
                 document.getElementById('win-screen').classList.add('hidden');
                 initSpel();
@@ -739,9 +642,15 @@
                 window.location.href = 'ganzenbord.html';
             });
             spinKnop.addEventListener('click', spinWheel);
-            keypadButtons.forEach(button => button.addEventListener('click', () => handleKeypad(button.dataset.key)));
 
-            // Start het spel
+            /* AANGEPAST: keypad met pointer events i.p.v. click (iOS-proof) */
+            keypadButtons.forEach(btn => {
+                btn.addEventListener('pointerup', (e) => {
+                    e.preventDefault();
+                    handleKeypad(btn.dataset.key);
+                }, { passive: false });
+            });
+
             initSpel();
         });
     </script>
